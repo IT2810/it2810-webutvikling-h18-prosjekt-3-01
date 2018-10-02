@@ -11,4 +11,6 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  completedIcon: "#b3e600",
+  progressBarFill: "#c5c6c5"
 };
