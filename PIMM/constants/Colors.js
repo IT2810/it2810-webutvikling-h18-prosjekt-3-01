@@ -6,7 +6,6 @@ const taskGray = '#545454';
 
 
 export default {
-
     //--Color Scheme--//
 
     //Progressbar
@@ -47,7 +46,19 @@ export default {
     categoryBlue: '#36a4dd',
     categoryRed: '#ff4d4e',
     primaryBlue,
-
+    
+    // Look over later and delete when updated components to use the above
+    tabIconDefault: '#ccc',
+    tabIconSelected: tintColor,
+    tabBar: '#fefefe',
+    errorBackground: 'red',
+    errorText: '#fff',
+    warningBackground: '#EAEB5E',
+    warningText: '#666804',
+    noticeBackground: tintColor,
+    noticeText: '#fff',
+    completedIcon: "#b3e600",
+    progressBarFill: "#c5c6c5"
 };
 
 
