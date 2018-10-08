@@ -5,25 +5,13 @@ import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
-  state = {
-    dailyGoal: this.props.dailyGoal,
-    stepsToday: this.props.stepsToday
-  };
-
+  
   goalReached() {
-    return this.state.stepsToday >= this.state.dailyGoal;
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState(state => ({
-        stepsToday: Math.min(state.stepsToday + 500, state.dailyGoal)
-      }));
-    }, 1000);
+    return this.props.stepsToday >= this.props.dailyGoal;
   }
 
   render() {
-    const { dailyGoal, stepsToday } = this.state;
+    const { dailyGoal, stepsToday } = this.props;
 
     return (
       <View style={styles.container}>

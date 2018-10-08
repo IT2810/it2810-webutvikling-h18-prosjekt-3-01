@@ -30,7 +30,7 @@ export default class ProgressBar extends Component {
       borderWidth,
       borderRadius,
       fillColor,
-      duration,
+      duration
     } = this.props;
 
     const widthInterpolated = this.animation.interpolate({

@@ -7,12 +7,15 @@ const taskGray = "#545454";
 
 export default {
   //--Color Scheme--//
+  
+  // General
+  whiteBackround: "#ffffff",
 
   //Progressbar
   stepBarStart: "#e55f00",
   stepBarFinished: "#aae200",
   stepBarFill: defaultGray,
-  stepBarText: mediumGray,
+  stepBarText: darkGray,
   stepBarWalkIcon: mediumGray,
 
   //Task
@@ -41,5 +44,5 @@ export default {
   categoryOrange: "#ff9f00",
   categoryBlue: "#36a4dd",
   categoryRed: "#ff4d4e",
-  primaryBlue,
+  primaryBlue
 };
