@@ -29,8 +29,8 @@ export default class ProgressBar extends Component {
       borderColor,
       borderWidth,
       borderRadius,
-      barColor,
-      fillColor
+      fillColor,
+      duration,
     } = this.props;
 
     const widthInterpolated = this.animation.interpolate({
@@ -41,7 +41,7 @@ export default class ProgressBar extends Component {
 
     const interpolateColor = this.animation.interpolate({
       inputRange: [0, 1],
-      outputRange: ["#e55f00", "#b3e600"]
+      outputRange: [Colors.stepBarStart, Colors.stepBarFinished]
     });
 
     const animatedStyle = {
@@ -72,7 +72,7 @@ export default class ProgressBar extends Component {
               }
             ]}
           />
-          <Text style={{ textAlign: "center", fontSize: 10 }}>
+          <Text style={styles.stepBarText}>
             {this.props.stepsToday} / {this.props.dailyGoal} steps
           </Text>
         </View>
@@ -83,10 +83,10 @@ export default class ProgressBar extends Component {
 
 ProgressBar.defaultProps = {
   height: 18,
-  borderColor: Colors.progressBarFill,
+  borderColor: Colors.stepBarFill,
   borderWidth: 2,
   borderRadius: 10,
-  fillColor: Colors.progressBarFill,
+  fillColor: Colors.stepBarFill,
   duration: 100
 };
 
@@ -104,5 +104,10 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0
+  },
+  stepBarText: {
+    textAlign: "center",
+    fontSize: 10,
+    color: Colors.stepBarText
   }
 });

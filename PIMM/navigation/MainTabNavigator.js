@@ -5,7 +5,7 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 
-import TabBarIcon from "../components/TabBarIcon";
+import TextIcon from "../components/TextIcon";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import StepScreen from "../screens/StepScreen";
@@ -17,7 +17,7 @@ const StepStack = createStackNavigator({
 StepStack.navigationOptions = {
   tabBarLabel: "Steps",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <TextIcon
       focused={focused}
       name={
         Platform.OS === "ios"
@@ -35,7 +35,7 @@ const LinksStack = createStackNavigator({
 LinksStack.navigationOptions = {
   tabBarLabel: "Tasks",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <TextIcon
       focused={focused}
       name={
         Platform.OS === "ios"
@@ -53,7 +53,7 @@ const SettingsStack = createStackNavigator({
 SettingsStack.navigationOptions = {
   tabBarLabel: "Settings",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <TextIcon
       focused={focused}
       name={
         Platform.OS === "ios"
