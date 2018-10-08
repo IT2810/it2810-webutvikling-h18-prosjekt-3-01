@@ -5,7 +5,7 @@ import ProgressBarContainer from "../containers/ProgressBarContainer";
 export default class StepScreen extends React.Component {
   state = {
     dailyGoal: 10000,
-    stepsToday: 1000
+    stepsToday: 9000
   };
   static navigationOptions = {
     title: "Steps"

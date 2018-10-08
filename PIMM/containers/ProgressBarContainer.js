@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
 import ProgressBar from "../components/ProgressBar";
 import TextIcon from "../components/TextIcon";
+import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
   state = {
@@ -9,40 +10,38 @@ export default class ProgressBarContainer extends Component {
     stepsToday: this.props.stepsToday
   };
 
-  goalReached () {
-    return this.state.stepsToday >= this.state.dailyGoal
+  goalReached() {
+    return this.state.stepsToday >= this.state.dailyGoal;
   }
 
   componentDidMount() {
-      setInterval(() => {
-        this.setState(state => ({
-          stepsToday: Math.min(state.stepsToday + 500, state.dailyGoal)
-        }));
-      }, 1000);
-  }  
-  
+    setInterval(() => {
+      this.setState(state => ({
+        stepsToday: Math.min(state.stepsToday + 500, state.dailyGoal)
+      }));
+    }, 1000);
+  }
+
   render() {
     const { dailyGoal, stepsToday } = this.state;
 
     return (
       <View style={styles.container}>
-        <Text>Daily steps</Text>
+        <Text style={styles.stepBarText}>Daily steps</Text>
         <View style={styles.progressContainer}>
           <TextIcon
-            name={
-              Platform.OS === "ios"
-                ? `ios-walk`
-                : "md-walk"
-            }
+            defaultColor={Colors.stepBarWalkIcon}
+            name={Platform.OS === "ios" ? `ios-walk` : "md-walk"}
           />
           <ProgressBar
             stepsToday={stepsToday}
             dailyGoal={dailyGoal}
-            progress={stepsToday/dailyGoal}
+            progress={stepsToday / dailyGoal}
             duration={500}
           />
           <TextIcon
-            completed = {this.goalReached()}
+            focused={this.goalReached()}
+            focusedColor={Colors.stepBarFinished}
             name={
               Platform.OS === "ios"
                 ? `ios-checkmark-circle${this.goalReached() ? "" : "-outline"}`
@@ -62,6 +61,10 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
+  },
+  stepBarText: {
+    color: Colors.stepBarText,
+    marginLeft: 25
   }
 });
