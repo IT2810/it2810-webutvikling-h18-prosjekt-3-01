@@ -1,48 +1,43 @@
 import { AsyncStorage } from "react-native";
-import React, { Component } from "react";
 
-class LocalAsyncStorage extends Component {
-  saveData = (dataKey, dataValue) => {
-    let storeData = async () => {
-      try {
-        await AsyncStorage.setItem(dataKey, dataValue);
-      } catch (error) {
-        // Error saving data
-      }
-    };
-  };
+const TASK_KEY = "taskKey";
+const STEP_KEY = "stepKey";
 
-  loadData = async dataKey => {
-    try {
-      const data = await AsyncStorage.getItem(dataKey);
-      if (data !== null) {
-        //Load successful
-        console.log(data);
-      }
-    } catch (error) {
-      //Error retrieving data
-    }
-    return data;
-  };
-
-  deleteData = async dataKey => {
-    try {
-      await AsyncStorage.removeItem(dataKey);
-    } catch (error) {
-      //Could not delete item with key: dataKey
-    }
-  };
-
-  loadAllData = () => {
-    //LocalAsyncStorage.getAllKeys()
-    //Loop gjennom keys
-    //Last data for hver key
-    //Returner resultat
-  };
-
-  render() {
-    return null;
+export async function saveData(dataKey, dataValue) {
+  let stringifiedVal = stringify(dataValue);
+  try {
+    await AsyncStorage.setItem(dataKey, stringifiedVal);
+  } catch (error) {
+    //Error saving data
   }
 }
 
-export default LocalAsyncStorage;
+export async function loadData(dataKey) {
+  try {
+    let data = await AsyncStorage.getItem(dataKey);
+    return parse(data);
+  } catch (error) {
+    //Error retrieving data
+  }
+}
+
+export async function deleteData(dataKey) {
+  try {
+    await AsyncStorage.removeItem(dataKey);
+  } catch (error) {
+    //Could not delete item with key: dataKey
+  }
+}
+
+export function loadAllData() {
+    //TODO 
+}
+
+//--Helper functions for this file--//
+function parse(dataString) {
+  return JSON.parse(dataString);
+}
+
+function stringify(dataValue) {
+  return JSON.stringify(dataValue);
+}
