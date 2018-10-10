@@ -29,9 +29,6 @@ export async function deleteData(dataKey) {
   }
 }
 
-export function loadAllData() {
-    //TODO 
-}
 
 //--Helper functions for this file--//
 function parse(dataString) {
