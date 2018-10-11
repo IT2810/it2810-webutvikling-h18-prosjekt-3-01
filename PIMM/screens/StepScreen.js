@@ -1,14 +1,20 @@
 import React from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import ProgressBarContainer from "../containers/ProgressBarContainer";
+import Colors from "../constants/Colors";
 
 export default class StepScreen extends React.Component {
-  state = {
-    dailyGoal: 10000,
-    stepsToday: 9000
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      dailyGoal: 10000,
+      stepsToday: 9000
+    };
+  }
+
   static navigationOptions = {
-    title: "Steps"
+    title: "Steps",
+    headerTitleStyle: { color: Colors.darkGray }
   };
 
   render() {
@@ -22,8 +28,8 @@ export default class StepScreen extends React.Component {
           </View>
           <View style={styles.progressBarContainer}>
             <ProgressBarContainer
-              dailyGoal = {this.state.dailyGoal}
-              stepsToday = {this.state.stepsToday}
+              dailyGoal={this.state.dailyGoal}
+              stepsToday={this.state.stepsToday}
             />
           </View>
         </View>

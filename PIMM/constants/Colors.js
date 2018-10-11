@@ -2,7 +2,6 @@ const primaryBlue = "#5a95ff";
 const defaultGray = "#bebebe";
 const darkGray = "#707070";
 const mediumGray = "#8D8D8D";
-const lightGray = "#d6d6d6";
 const taskGray = "#545454";
 
 export default {
@@ -16,14 +15,16 @@ export default {
   stepBarWalkIcon: mediumGray,
 
   //Task
+  tasksTitle: darkGray,
+  tasksBackground: "#efefef",
+
   taskCategoryTitle: "#fff",
   taskUnselectedDateTime: defaultGray,
-  taskTitle: darkGray,
-  taskCompleted: "#e4e4e4",
+  taskCompletedBG: "#e4e4e4",
+  taskNotCompletedBG: "#fff",
   taskText: taskGray,
   taskIcon: taskGray,
   taskToggleCompleted: defaultGray,
-  taskBackground: "#efefef",
 
   //Statistics
   statisticsText: primaryBlue,
@@ -42,4 +43,8 @@ export default {
   categoryBlue: "#36a4dd",
   categoryRed: "#ff4d4e",
   primaryBlue,
+  defaultGray,
+  darkGray,
+  mediumGray,
+  taskGray
 };
