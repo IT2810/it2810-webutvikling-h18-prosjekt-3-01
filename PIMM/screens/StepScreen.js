@@ -6,14 +6,18 @@ import { Pedometer } from "expo";
 import Colors from "../constants/Colors";
 
 export default class StepScreen extends React.Component {
-  state = {
-    pedometerAvailable: "checking",
-    stepsToday: 0,
-    dailyGoal: 10000
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      pedometerAvailable: "checking",
+      stepsToday: 0,
+      dailyGoal: 10000
+    };
+  }
+  
   static navigationOptions = {
-    title: "Steps"
+    title: "Steps",
+    headerTitleStyle: { color: Colors.darkGray }
   };
 
   componentDidMount() {

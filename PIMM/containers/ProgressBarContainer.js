@@ -5,7 +5,7 @@ import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
-  
+
   goalReached() {
     return this.props.stepsToday >= this.props.dailyGoal;
   }
