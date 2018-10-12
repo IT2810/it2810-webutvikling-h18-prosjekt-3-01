@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 
 import TextIcon from "../components/TextIcon";
-import LinksScreen from "../screens/LinksScreen";
+import TasksScreen from "../screens/TasksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import StepScreen from "../screens/StepScreen";
 
@@ -28,11 +28,11 @@ StepStack.navigationOptions = {
   )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const TasksStack = createStackNavigator({
+  Tasks: TasksScreen
 });
 
-LinksStack.navigationOptions = {
+TasksStack.navigationOptions = {
   tabBarLabel: "Tasks",
   tabBarIcon: ({ focused }) => (
     <TextIcon
@@ -65,7 +65,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  TasksStack,
   StepStack,
-  LinksStack,
   SettingsStack
 });

@@ -5,10 +5,13 @@ import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
-  state = {
-    dailyGoal: this.props.dailyGoal,
-    stepsToday: this.props.stepsToday
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      dailyGoal: this.props.dailyGoal,
+      stepsToday: this.props.stepsToday
+    };
+  }
 
   goalReached() {
     return this.state.stepsToday >= this.state.dailyGoal;
