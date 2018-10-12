@@ -1,34 +1,34 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import Tasks from "../containers/Tasks";
-import ProgressBarContainer from "../containers/ProgressBarContainer";
 import Colors from "../constants/Colors";
 
-export default class TasksScreen extends React.Component {
+export default class EditTaskScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dailyGoal: 10000,
-      stepsToday: 9000
-    };
+    this.state = {};
   }
 
   static navigationOptions = {
-    title: "Tasks",
+    title: "Edit a task",
     headerTitleStyle: { color: Colors.darkGray }
   };
+
+  // This is how you get the provided state and functions from the tasks context provider
+  // Use where you need to use the variables.
+  // <TasksConsumer>
+  //   {({ allTasks, toggleCompletedTask }) => (
+  //       <Text h1 style={styles.title}>
+  //         Create new task yo
+  //       </Text>
+  //
+  //   )}
+  // </TasksConsumer>
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.progressBarContainer}>
-          <ProgressBarContainer
-            dailyGoal={this.state.dailyGoal}
-            stepsToday={this.state.stepsToday}
-          />
-        </View>
-        <Tasks />
+        <Text>This is the edit task screen</Text>
       </ScrollView>
     );
   }
@@ -39,8 +39,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: "#fff"
-  },
-  progressBarContainer: {
-    margin: 0
   }
 });

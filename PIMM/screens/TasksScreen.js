@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Tasks from "../containers/Tasks";
 import ProgressBarContainer from "../containers/ProgressBarContainer";
 import Colors from "../constants/Colors";
+import { TasksConsumer } from "../containers/Tasks.context";
 
 export default class TasksScreen extends React.Component {
   constructor(props) {

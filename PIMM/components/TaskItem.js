@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
-
+import { CheckBox } from "react-native-elements";
 import Moment from "moment";
+
 import Colors from "../constants/Colors";
-import TextIcon from "../components/TextIcon";
+import { CrossPlatformIcon } from "../components/TextIcon";
+import { TasksConsumer } from "../containers/Tasks.context";
 
 const TaskItem = ({
   taskId,
@@ -13,59 +15,78 @@ const TaskItem = ({
   category,
   completed
 }) => {
-  const checkIcon = completed ? "checkbox-outline" : "square-outline";
-
   return (
-    <View
-      style={[
-        styles.wrapper,
-        {
-          backgroundColor: completed
-            ? Colors.taskCompletedBG
-            : Colors.taskNotCompletedBG
-        }
-      ]}
-    >
-      <TextIcon
-        iconSize={25}
-        defaultColor={Colors.taskIcon}
-        styles={{ marginBottom: 0, marginRight: 10 }}
-        name={Platform.OS === "ios" ? `ios-${checkIcon}` : `md-${checkIcon}`}
-      />
-      <Text
-        style={[
-          styles.taskText,
-          {
-            textDecorationLine: completed ? "line-through" : "none",
-            fontStyle: completed ? "italic" : "normal"
-          }
-        ]}
-      >
-        {description}
-      </Text>
-      {due && (
-        <View style={styles.dueDateWrapper}>
-          <TextIcon
-            iconSize={25}
-            defaultColor={Colors.taskIcon}
-            styles={{ marginBottom: 0 }}
-            name={Platform.OS === "ios" ? "ios-time" : "md-time"}
+    <TasksConsumer>
+      {({ toggleCompletedTask }) => (
+        <View
+          style={[
+            styles.wrapper,
+            {
+              backgroundColor: completed
+                ? Colors.taskCompletedBG
+                : Colors.taskNotCompletedBG
+            }
+          ]}
+        >
+          <CheckBox
+            onPress={() => toggleCompletedTask(taskId)}
+            checked={completed}
+            uncheckedIcon={
+              <CrossPlatformIcon
+                iconSize={25}
+                defaultColor={Colors.taskIcon}
+                name="square-outline"
+              />
+            }
+            checkedIcon={
+              <CrossPlatformIcon
+                iconSize={25}
+                defaultColor={Colors.taskIcon}
+                name="checkbox-outline"
+              />
+            }
+            containerStyle={styles.checkBoxContainer}
           />
-          <View style={styles.dueDateTimeWrapper}>
-            <Text style={styles.timeClock}>{Moment(due).format("HH:mm")}</Text>
-            <Text style={styles.timeDate}>{Moment(due).format("D. MMM")}</Text>
-          </View>
+          <Text
+            style={[
+              styles.taskText,
+              {
+                textDecorationLine: completed ? "line-through" : "none",
+                fontStyle: completed ? "italic" : "normal"
+              }
+            ]}
+          >
+            {description}
+          </Text>
+          {due && (
+            <View style={styles.dueDateWrapper}>
+              <CrossPlatformIcon
+                iconSize={25}
+                defaultColor={Colors.taskIcon}
+                styles={{ marginBottom: 0 }}
+                name="time"
+              />
+              <View style={styles.dueDateTimeWrapper}>
+                <Text style={styles.timeClock}>
+                  {Moment(due).format("HH:mm")}
+                </Text>
+                <Text style={styles.timeDate}>
+                  {Moment(due).format("D. MMM")}
+                </Text>
+              </View>
+            </View>
+          )}
+          {!!reminders.length && (
+            <CrossPlatformIcon
+              iconSize={25}
+              defaultColor={Colors.taskIcon}
+              styles={{ marginBottom: 0 }}
+              name="alarm"
+            />
+          )}
         </View>
       )}
-      {!!reminders.length && (
-        <TextIcon
-          iconSize={25}
-          defaultColor={Colors.taskIcon}
-          styles={{ marginBottom: 0 }}
-          name={Platform.OS === "ios" ? "ios-alarm" : "md-alarm"}
-        />
-      )}
-    </View>
+    </TasksConsumer>
   );
 };
 
@@ -75,12 +96,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    margin: 10
+    marginHorizontal: 10,
+    marginTop: 10
   },
-  taskText: { color: Colors.taskText, marginRight: 10, flex: 3 },
+  taskText: { color: Colors.taskText, flex: 3 },
   dueDateWrapper: {
     flex: 1,
-
     flexDirection: "row",
     alignItems: "center"
   },
@@ -88,8 +109,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center"
   },
-  timeClock: {},
-  timeDate: {}
+  timeClock: { fontWeight: "bold", fontSize: 17, color: Colors.taskText },
+  timeDate: { fontSize: 13, color: Colors.taskText },
+  checkBoxContainer: {
+    marginVertical: 0,
+    marginHorizontal: 0,
+    paddingVertical: 0,
+    paddingHorizontal: 0
+  }
 });
 
 export default TaskItem;
