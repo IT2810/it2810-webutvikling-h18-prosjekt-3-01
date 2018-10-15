@@ -73,7 +73,8 @@ export default class ProgressBar extends Component {
             ]}
           />
           <Text style={styles.stepBarText}>
-            {this.props.stepsToday} / {this.props.dailyGoal} steps
+            {Math.min(this.props.stepsToday, this.props.dailyGoal)} /{" "}
+            {this.props.dailyGoal} steps
           </Text>
         </View>
       </View>

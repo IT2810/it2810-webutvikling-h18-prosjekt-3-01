@@ -9,7 +9,6 @@ import TextIcon from "../components/TextIcon";
 import TasksScreen from "../screens/TasksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import StepScreen from "../screens/StepScreen";
-import HomeScreen from "../screens/HomeScreen";
 
 const StepStack = createStackNavigator({
   Steps: StepScreen
@@ -66,7 +65,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  TasksStack,
   StepStack,
+  TasksStack,
   SettingsStack
 });
