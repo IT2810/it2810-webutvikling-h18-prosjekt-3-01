@@ -1,15 +1,33 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
+import { Notifications } from "expo";
+
 import ProgressBar from "../components/ProgressBar";
 import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
+  reachedStepGoal = () => {
+    const localNotification = {
+      title: "Good job! You reached your step goal!",
+      body: "Now you can relax, or maybe you want to walk more?",
+      ios: { sound: true },
+      android: {
+        channelId: "steps",
+        color: "yellow"
+      }
+    };
+    Notifications.presentLocalNotificationAsync(localNotification);
+  };
 
   goalReached() {
+    this.reachedStepGoal();
     return this.props.stepsToday >= this.props.dailyGoal;
   }
 
+  componentDidMount() {
+    this.reachedStepGoal();
+  }
   render() {
     const { dailyGoal, stepsToday } = this.props;
 
