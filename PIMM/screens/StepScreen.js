@@ -24,7 +24,7 @@ export default class StepScreen extends React.Component {
       dailyGoal: 1700
     };
   }
-
+  
   static navigationOptions = {
     title: "Steps",
     headerTitleStyle: { color: Colors.darkGray }
@@ -50,7 +50,6 @@ export default class StepScreen extends React.Component {
       },
       error => {
         this.setState({
-          pedometerAvailable: "Could not get pedometerAvailable: " + error,
           stepsToday: "Could not get stepCount: " + error
         });
       }
@@ -148,6 +147,42 @@ export default class StepScreen extends React.Component {
             </View>
             <Text style={styles.quoteText}>{Strings.motivation.first}</Text>
             <Text style={styles.quoteText}>{Strings.motivation.second}</Text>
+          </View>
+        </ScrollView>
+      );
+    } else {
+      return this.renderErrorMessage();
+    }
+  }
+
+  goalReached() {
+    return this.state.stepsToday >= this.state.dailyGoal;
+  }
+
+  returnMotivationQuote() {
+    if (this.goalReached()) {
+      return "Goal reached! Now sit down and chill for the rest of the day ;-)";
+    } else {
+      return "Walk a little bit more!";
+    }
+  }
+
+  render() {
+    if (this.state.pedometerAvailable) {
+      return (
+        <ScrollView>
+          <View style={[styles.container, styles.center]}>
+            <View style={styles.container}>
+              <Text style={styles.exampleText}>
+                {this.returnMotivationQuote()}
+              </Text>
+            </View>
+            <View style={styles.progressBarContainer}>
+              <ProgressBarContainer
+                dailyGoal={this.state.dailyGoal}
+                stepsToday={this.state.stepsToday}
+              />
+            </View>
           </View>
         </ScrollView>
       );
