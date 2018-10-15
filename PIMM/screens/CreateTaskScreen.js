@@ -1,7 +1,8 @@
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Text } from "react-native";
 import Colors from "../constants/Colors";
-
+import { createStackNavigator } from "react-navigation";
+import { Button } from "react-native-elements";
 export default class CreateTaskScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +31,10 @@ export default class CreateTaskScreen extends React.Component {
         <View>
           <Text>This is create task screen</Text>
         </View>
+        <Button
+          title="x"
+          onPress={() => this.props.navigation.navigate("Tasks")}
+        />
       </ScrollView>
     );
   }

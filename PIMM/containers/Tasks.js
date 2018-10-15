@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
+
 import CategorisedTasksContainer from "../containers/CategorisedTasksContainer";
 import Colors from "../constants/Colors";
 import { TasksConsumer } from "../containers/Tasks.context";
