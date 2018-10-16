@@ -11,7 +11,16 @@ export default class CreateTaskScreen extends React.Component {
     this.state = {
         screenColor: Colors.categoryGreen,
         descriptionText: '',
+        chosenDate: '',
+        reminder: '',
     };
+  }
+  handleReminderChange = reminder => {
+      this.setState({reminder: reminder})
+  }
+
+  handleDateChange = date => {
+      this.setState({chosenDate: date})
   }
 
   //--Color change--//
@@ -25,10 +34,17 @@ export default class CreateTaskScreen extends React.Component {
     headerTitleStyle: { color: Colors.darkGray }
   };
 
+  calculateReminderTime = (reminder) => {
+      //TODO subtract 'reminder' from chosenDate
+  }
+
+  handleCreateTask = () => {
+      //TODO Pass along descriptionText, chosenDate, reminder and ScreenColor to create task
+  }
+
 
   render() {
     return (
-
       <View style={styles.container}>
           <View style={[styles.wrapper, {backgroundColor: this.state.screenColor}]}>
             <Text style={styles.descriptionText}>
@@ -46,21 +62,20 @@ export default class CreateTaskScreen extends React.Component {
           <Text style={[styles.label, {color: this.state.screenColor}]}>
              Importance & Urgence
           </Text>
-          <CategorySelector
-              handleCategoryChange={this.handleCategoryChange}
-          />
-          <DateSelector screenColor={this.state.screenColor}/>
-          <ReminderSelector screenColor={this.state.screenColor}/>
-          <Text style={{color: this.state.screenColor, fontSize: 20}}>
-              {this.state.chosenDate}
-          </Text>
-          <TouchableOpacity style={[styles.createTaskButton, {backgroundColor: this.state.screenColor}]}>
+          <CategorySelector handleCategoryChange={this.handleCategoryChange}/>
+          <DateSelector screenColor={this.state.screenColor} handleDateChange={this.handleDateChange}/>
+          <ReminderSelector screenColor={this.state.screenColor} handleReminderChange={this.handleReminderChange}/>
+          <TouchableOpacity
+              style={[
+                  styles.createTaskButton,
+                  {backgroundColor: this.state.screenColor}
+                  ]}
+              onPress={this.handleCreateTask}
+          >
               <Text style={styles.buttonText}>
                   Create task
               </Text>
           </TouchableOpacity>
-
-
       </View>
     );
   }
@@ -68,7 +83,7 @@ export default class CreateTaskScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
+        flex: 1,
         backgroundColor: "#fff",
     },
     wrapper: {
