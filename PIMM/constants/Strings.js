@@ -4,8 +4,8 @@ export default {
     false: "Walk a little bit more!"
   },
   motivation: {
-    first: "Walking is good for your body!",
-    second: "Go walk a little more."
+    goalNotReached: "Walking is good for your body! \nGo walk a little more.",
+    goalReached: "Congrats! \nOne step closer to a healthy lifestyle."
   },
   statistics: {
     today: "Today",

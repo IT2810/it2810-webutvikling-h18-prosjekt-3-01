@@ -11,7 +11,6 @@ export default class EditTaskScreen extends React.Component {
 
   static navigationOptions = {
     title: "Edit a task",
-    headerTitleStyle: { color: Colors.darkGray }
   };
 
   // This is how you get the provided state and functions from the tasks context provider

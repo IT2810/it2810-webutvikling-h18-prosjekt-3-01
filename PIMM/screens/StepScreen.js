@@ -15,19 +15,16 @@ import Colors from "../constants/Colors";
 import Strings from "../constants/Strings";
 
 export default class StepScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pedometerAvailable: "checking",
-      stepsToday: 0,
-      stepsThisWeek: 0,
-      dailyGoal: 1700
-    };
-  }
+  state = {
+    pedometerAvailable: "checking",
+    stepsToday: 0,
+    stepsThisWeek: 0,
+    dailyGoal: 6800,
+    pedometerError: false
+  };
 
   static navigationOptions = {
-    title: "Steps",
-    headerTitleStyle: { color: Colors.darkGray }
+    title: "Steps"
   };
 
   componentDidMount() {
@@ -49,10 +46,7 @@ export default class StepScreen extends React.Component {
         this.setState({ stepsToday: result.steps });
       },
       error => {
-        this.setState({
-          pedometerAvailable: "Could not get pedometerAvailable: " + error,
-          stepsToday: "Could not get stepCount: " + error
-        });
+        this.setState({ pedometerError: true });
       }
     );
   };
@@ -67,10 +61,7 @@ export default class StepScreen extends React.Component {
         this.setState({ stepsThisWeek: result.steps });
       },
       error => {
-        this.setState({
-          stepsToday: "Could not get stepCount: " + error,
-          pedometerAvailable: "Could not get pedometerAvailable: " + error
-        });
+        this.setState({ pedometerError: true });
       }
     );
   };
@@ -89,7 +80,7 @@ export default class StepScreen extends React.Component {
       },
       error => {
         this.setState({
-          pedometerAvailable: "Could not get pedometerAvailable: " + error
+          pedometerError: true
         });
       }
     );
@@ -104,20 +95,20 @@ export default class StepScreen extends React.Component {
 
   renderErrorMessage() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <ScrollView style={styles.container}>
+        <View style={styles.stepsContainer}>
           <Text style={styles.quoteText}>{Strings.pedometerUnavailable}</Text>
         </View>
       </ScrollView>
     );
   }
 
-  goalReached() {
+  isGoalReached() {
     return this.state.stepsToday >= this.state.dailyGoal;
   }
 
   returnMotivationQuote() {
-    if (this.goalReached()) {
+    if (this.isGoalReached()) {
       return Strings.goalReached.true;
     } else {
       return Strings.goalReached.false;
@@ -125,7 +116,8 @@ export default class StepScreen extends React.Component {
   }
 
   render() {
-    if (this.state.pedometerAvailable) {
+    console.log(this.state.pedometerAvailable);
+    if (!this.state.pedometerError) {
       return (
         <ScrollView style={styles.container}>
           <View style={[styles.stepsContainer]}>
@@ -146,8 +138,17 @@ export default class StepScreen extends React.Component {
                 source={require("../assets/images/walking-man.jpg")}
               />
             </View>
-            <Text style={styles.quoteText}>{Strings.motivation.first}</Text>
-            <Text style={styles.quoteText}>{Strings.motivation.second}</Text>
+            {
+              (motivationText = this.isGoalReached() ? (
+                <Text style={styles.quoteText}>
+                  {Strings.motivation.goalReached}{" "}
+                </Text>
+              ) : (
+                <Text style={styles.quoteText}>
+                  {Strings.motivation.goalNotReached}
+                </Text>
+              ))
+            }
           </View>
         </ScrollView>
       );
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     color: Colors.primaryBlue,
     fontSize: 18,
-    lineHeight: 19
+    lineHeight: 20
   },
   statisticsImage: {
     width: null,

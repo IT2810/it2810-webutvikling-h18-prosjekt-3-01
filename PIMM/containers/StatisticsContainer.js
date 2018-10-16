@@ -5,25 +5,21 @@ import Strings from "../constants/Strings";
 import StatisticsItem from "../components/StatisticsItem";
 
 export default class StatisticsContainer extends Component {
-  makeStatisticsItems = () => {
-    const { stepsToday, stepsThisWeek } = this.props;
-    const rowData = [
-      [1, Strings.statistics.today, stepsToday],
-      [2, Strings.statistics.average, Math.round(stepsThisWeek / 7)],
-      [3, Strings.statistics.lastWeek, stepsThisWeek]
-    ];
-    const rows = rowData.map(data => (
-      <StatisticsItem key={data[0]} text={data[1]} steps={data[2]} />
-    ));
-    return rows;
-  };
-
   render() {
+    const { stepsToday, stepsThisWeek } = this.props;
     return (
       <View style={styles.statisticsContainer}>
         <Text style={styles.headerText}>Statistics</Text>
         <View />
-        {this.makeStatisticsItems()}
+        <StatisticsItem text={Strings.statistics.today} steps={stepsToday} />
+        <StatisticsItem
+          text={Strings.statistics.average}
+          steps={Math.round(stepsThisWeek / 7)}
+        />
+        <StatisticsItem
+          text={Strings.statistics.lastWeek}
+          steps={stepsThisWeek}
+        />
         <View />
       </View>
     );
