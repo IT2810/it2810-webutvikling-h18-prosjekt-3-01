@@ -45,18 +45,15 @@ class TasksProvider extends Component {
   }
 
   toggleCompletedTask = taskId => {
-    this.setState(
-      state => ({
-        allTasks: {
-          ...state.allTasks,
-          [taskId]: {
-            ...state.allTasks[taskId],
-            completed: !state.allTasks[taskId].completed
-          }
+    this.setState(state => ({
+      allTasks: {
+        ...state.allTasks,
+        [taskId]: {
+          ...state.allTasks[taskId],
+          completed: !state.allTasks[taskId].completed
         }
-      }),
-      () => console.log(this.state.allTasks[taskId])
-    );
+      }
+    }));
   };
 
   editTask = (taskId, description, due, reminders, category) => {
@@ -112,8 +109,6 @@ class TasksProvider extends Component {
     }));
 
   render() {
-    console.log(this.state);
-
     return (
       <TasksContext.Provider
         value={{
