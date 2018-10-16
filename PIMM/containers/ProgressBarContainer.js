@@ -20,14 +20,14 @@ export default class ProgressBarContainer extends Component {
     Notifications.presentLocalNotificationAsync(localNotification);
   };
 
-  goalReached() {
-    this.reachedStepGoal();
-    return this.props.stepsToday >= this.props.dailyGoal;
+  isGoalReached() {
+    const isReached = this.props.stepsToday >= this.props.dailyGoal;
+    if (isReached) {
+      this.reachedStepGoal();
+    }
+    return isReached;
   }
 
-  componentDidMount() {
-    this.reachedStepGoal();
-  }
   render() {
     const { dailyGoal, stepsToday } = this.props;
 
@@ -46,11 +46,13 @@ export default class ProgressBarContainer extends Component {
             duration={500}
           />
           <TextIcon
-            focused={this.goalReached()}
+            focused={this.isGoalReached()}
             focusedColor={Colors.stepBarFinished}
             name={
               Platform.OS === "ios"
-                ? `ios-checkmark-circle${this.goalReached() ? "" : "-outline"}`
+                ? `ios-checkmark-circle${
+                    this.isGoalReached() ? "" : "-outline"
+                  }`
                 : `md-checkmark-circle-outline`
             }
           />
