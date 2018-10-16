@@ -3,17 +3,19 @@ import {
   View,
   Text,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
 import { CrossPlatformIcon } from "../components/TextIcon";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import Colors from "../constants/Colors";
 
 export default class DateSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isDatePickerVisible: false,
-      chosenDate: ""
+      chosenDate: "Set a due date and time"
     };
   }
 
@@ -33,12 +35,13 @@ export default class DateSelector extends Component {
     this.setState({
       isDatePickerVisible: false,
       chosenDate: moment(datetime).format("MMMM, Do YYYY HH:mm")
-    });
+    }, this.props.handleDateChange(moment(datetime).format("MMMM, Do YYYY HH:mm")));
+
   };
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <DateTimePicker
           isVisible={this.state.isDatePickerVisible}
           onConfirm={this.handleDatePicked}
@@ -47,7 +50,7 @@ export default class DateSelector extends Component {
           is24Hour={true}
         />
         <TouchableOpacity
-          style={{marginLeft: '5%', flex: 1, flexDirection: "row" }}
+          style={styles.touchable}
           onPress={this.showDatePicker}
         >
           <CrossPlatformIcon
@@ -56,13 +59,12 @@ export default class DateSelector extends Component {
             name="calendar"
           />
           <Text
-            style={{
-              fontWeight: "bold",
-              color: this.props.screenColor,
-              marginLeft: "5%"
-            }}
+            style={[styles.label, { color: this.props.screenColor}]}
           >
             Due date
+          </Text>
+          <Text style={styles.detailLabel}>
+              {this.state.chosenDate}
           </Text>
         </TouchableOpacity>
       </View>
@@ -70,3 +72,23 @@ export default class DateSelector extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+     backgroundColor: "#fff",
+   },
+   touchable: {
+     marginLeft: '5%',
+     flex: 1,
+     flexDirection: 'row',
+   },
+   label: {
+      fontWeight: 'bold',
+      marginLeft: '5%',
+   },
+   detailLabel: {
+     color: Colors.mediumGray,
+   }
+
+});
