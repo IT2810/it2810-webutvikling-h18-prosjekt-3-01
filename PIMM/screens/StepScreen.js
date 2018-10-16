@@ -160,7 +160,7 @@ export default class StepScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.whiteBackround
+    backgroundColor: Colors.appBackground
   },
   stepsContainer: {
     flex: 1,

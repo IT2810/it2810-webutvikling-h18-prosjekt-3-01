@@ -15,7 +15,8 @@ export default {
 
   //Progressbar
   stepBarStart: "#e55f00",
-  stepBarFinished: primaryBlue,
+  stepBarFinished: "#aae200",
+  stepBarFinishedIcon: primaryBlue,
   stepBarFill: defaultGray,
   stepBarText: darkGray,
   stepBarWalkIcon: mediumGray,

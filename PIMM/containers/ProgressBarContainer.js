@@ -47,7 +47,7 @@ export default class ProgressBarContainer extends Component {
           />
           <TextIcon
             focused={this.isGoalReached()}
-            focusedColor={Colors.stepBarFinished}
+            focusedColor={Colors.stepBarFinishedIcon}
             name={
               Platform.OS === "ios"
                 ? `ios-checkmark-circle${
