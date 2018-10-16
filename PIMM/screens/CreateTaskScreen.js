@@ -36,6 +36,7 @@ export default class CreateTaskScreen extends React.Component {
 
   calculateReminderTime = (reminder) => {
       //TODO subtract 'reminder' from chosenDate
+      //https://stackoverflow.com/questions/45859935/how-to-subtract-and-plus-date-in-react-native
   }
 
   handleCreateTask = () => {
