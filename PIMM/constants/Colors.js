@@ -10,6 +10,9 @@ export default {
   // General
   whiteBackround: "#ffffff",
 
+  // General
+  whiteBackround: "#FFFFFF",
+
   //Progressbar
   stepBarStart: "#e55f00",
   stepBarFinished: "#aae200",
