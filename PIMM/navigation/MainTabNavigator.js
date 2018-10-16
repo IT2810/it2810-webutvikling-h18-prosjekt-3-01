@@ -64,8 +64,13 @@ SettingsStack.navigationOptions = {
   )
 };
 
-export default createBottomTabNavigator({
-  StepStack,
-  TasksStack,
-  SettingsStack
-});
+export default createBottomTabNavigator(
+  {
+    StepStack,
+    TasksStack,
+    SettingsStack
+  },
+  {
+    initialRouteName: "TasksStack"
+  }
+);

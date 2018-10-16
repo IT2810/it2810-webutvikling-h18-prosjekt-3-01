@@ -116,7 +116,6 @@ export default class StepScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state.pedometerAvailable);
     if (!this.state.pedometerError) {
       return (
         <ScrollView style={styles.container}>

@@ -1,14 +1,52 @@
 import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
-import { AppLoading, Asset, Font, Icon } from "expo";
+import Expo, { AppLoading, Asset, Font, Icon } from "expo";
 
 import AppNavigator from "./navigation/AppNavigator";
 import TasksProvider from "./containers/Tasks.context";
+
+async function checkNotificationPermissions() {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status !== "granted") {
+    alert(
+      "You need to enable notifications for this app if you want to get notified about your tasks and steps."
+    );
+  }
+}
+
+async function createAndroidNotificationChannels() {
+  const tasksChannel = {
+    name: "Tasks",
+    description: "Get notifications for tasks",
+    sound: true,
+    vibrate: true,
+    badge: true
+  };
+  const stepsChannel = {
+    name: "Steps",
+    description: "Get notifications for steps",
+    sound: false,
+    vibrate: true,
+    badge: false
+  };
+
+  Expo.Notifications.createChannelAndroidAsync("tasks", tasksChannel);
+  Expo.Notifications.createChannelAndroidAsync("steps", stepsChannel);
+}
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false
   };
+
+  componentWillMount() {
+    checkNotificationPermissions();
+    if (Platform.OS === "android") {
+      createAndroidNotificationChannels();
+    }
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
