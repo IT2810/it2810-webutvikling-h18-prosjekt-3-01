@@ -11,7 +11,6 @@ export default class CreateTaskScreen extends React.Component {
 
   static navigationOptions = {
     title: "Create a new task",
-    headerTitleStyle: { color: Colors.darkGray }
   };
 
   // This is how you get the provided state and functions from the tasks context provider
