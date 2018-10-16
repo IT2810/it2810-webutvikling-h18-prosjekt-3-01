@@ -63,11 +63,17 @@ export default class CreateTaskScreen extends React.Component {
              Importance & Urgence
           </Text>
           <CategorySelector handleCategoryChange={this.handleCategoryChange}/>
-          <DateSelector screenColor={this.state.screenColor} handleDateChange={this.handleDateChange}/>
-          <ReminderSelector screenColor={this.state.screenColor} handleReminderChange={this.handleReminderChange}/>
+          <DateSelector
+              screenColor={this.state.screenColor}
+              handleDateChange={this.handleDateChange}
+          />
+          <ReminderSelector
+              screenColor={this.state.screenColor}
+              handleReminderChange={this.handleReminderChange}
+          />
           <TouchableOpacity
               style={[
-                  styles.createTaskButton,
+                  styles.saveChangesButton,
                   {backgroundColor: this.state.screenColor}
                   ]}
               onPress={this.handleCreateTask}
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#fff",
     },
-    createTaskButton: {
+    saveChangesButton: {
         padding: 10,
         backgroundColor: Colors.categoryGreen,
         alignSelf: "center",
