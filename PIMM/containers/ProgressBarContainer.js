@@ -42,12 +42,12 @@ export default class ProgressBarContainer extends Component {
           <ProgressBar
             stepsToday={stepsToday}
             dailyGoal={dailyGoal}
-            progress={Math.min(stepsToday, dailyGoal) / dailyGoal}
+            progress={stepsToday / dailyGoal}
             duration={500}
           />
           <TextIcon
             focused={this.isGoalReached()}
-            focusedColor={Colors.primaryBlue}
+            focusedColor={Colors.stepBarFinished}
             name={
               Platform.OS === "ios"
                 ? `ios-checkmark-circle${
@@ -64,7 +64,8 @@ export default class ProgressBarContainer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    padding: 10
   },
   progressContainer: {
     flexDirection: "row",

@@ -10,6 +10,7 @@ import { Button } from "react-native-elements";
 export default class TasksScreen extends React.Component {
   static navigationOptions = {
     title: "Tasks",
+    headerTitleStyle: { color: Colors.darkGray }
   };
 
   render() {
