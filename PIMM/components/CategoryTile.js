@@ -17,7 +17,7 @@ export default class CategoryTile extends Component {
         return(
           <TouchableOpacity
             style={this.props.style}
-            onPress={this.props.onPress}
+            onPress={() => this.props.onPress(this.props.identifier)}
           >
               <Text style={this.props.textStyle}>
                   {this.state.category}
