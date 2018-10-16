@@ -6,6 +6,9 @@ const taskGray = "#545454";
 
 export default {
   //--Color Scheme--//
+  
+  // General
+  whiteBackround: "#ffffff",
 
   // General
   whiteBackround: "#FFFFFF",

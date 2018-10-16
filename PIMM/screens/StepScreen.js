@@ -156,6 +156,42 @@ export default class StepScreen extends React.Component {
       return this.renderErrorMessage();
     }
   }
+
+  goalReached() {
+    return this.state.stepsToday >= this.state.dailyGoal;
+  }
+
+  returnMotivationQuote() {
+    if (this.goalReached()) {
+      return "Goal reached! Now sit down and chill for the rest of the day ;-)";
+    } else {
+      return "Walk a little bit more!";
+    }
+  }
+
+  render() {
+    if (this.state.pedometerAvailable) {
+      return (
+        <ScrollView>
+          <View style={[styles.container, styles.center]}>
+            <View style={styles.container}>
+              <Text style={styles.exampleText}>
+                {this.returnMotivationQuote()}
+              </Text>
+            </View>
+            <View style={styles.progressBarContainer}>
+              <ProgressBarContainer
+                dailyGoal={this.state.dailyGoal}
+                stepsToday={this.state.stepsToday}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      );
+    } else {
+      return this.renderErrorMessage();
+    }
+  }
 }
 
 const styles = StyleSheet.create({
