@@ -1,12 +1,14 @@
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Button } from "react-native";
 
 import Colors from "../constants/Colors";
 
 export default class EditTaskScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      taskId: this.props.navigation.getParam("taskId", "NO-ID")
+    };
   }
 
   static navigationOptions = {
@@ -28,6 +30,12 @@ export default class EditTaskScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text>This is the edit task screen</Text>
+        <Text>taskId: {JSON.stringify(this.state.taskId)}</Text>
+
+        <Button
+          title="x"
+          onPress={() => this.props.navigation.navigate("Tasks")}
+        />
       </ScrollView>
     );
   }

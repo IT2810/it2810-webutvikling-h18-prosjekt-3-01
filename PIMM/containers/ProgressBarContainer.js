@@ -1,12 +1,31 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
+import { Notifications } from "expo";
+
 import ProgressBar from "../components/ProgressBar";
 import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
-  goalReached() {
-    return this.props.stepsToday >= this.props.dailyGoal;
+  reachedStepGoal = () => {
+    const localNotification = {
+      title: "Good job! You reached your step goal!",
+      body: "Now you can relax, or maybe you want to walk more?",
+      ios: { sound: true },
+      android: {
+        channelId: "steps",
+        color: "yellow"
+      }
+    };
+    Notifications.presentLocalNotificationAsync(localNotification);
+  };
+
+  isGoalReached() {
+    const isReached = this.props.stepsToday >= this.props.dailyGoal;
+    if (isReached) {
+      this.reachedStepGoal();
+    }
+    return isReached;
   }
 
   render() {
@@ -27,11 +46,13 @@ export default class ProgressBarContainer extends Component {
             duration={500}
           />
           <TextIcon
-            focused={this.goalReached()}
+            focused={this.isGoalReached()}
             focusedColor={Colors.primaryBlue}
             name={
               Platform.OS === "ios"
-                ? `ios-checkmark-circle${this.goalReached() ? "" : "-outline"}`
+                ? `ios-checkmark-circle${
+                    this.isGoalReached() ? "" : "-outline"
+                  }`
                 : `md-checkmark-circle-outline`
             }
           />

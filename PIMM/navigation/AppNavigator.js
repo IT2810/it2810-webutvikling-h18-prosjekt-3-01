@@ -1,10 +1,20 @@
-import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import React from "react";
+import { createSwitchNavigator, createStackNavigator } from "react-navigation";
 
-import MainTabNavigator from './MainTabNavigator';
+import MainTabNavigator from "./MainTabNavigator";
+import CreateTaskScreen from "../screens/CreateTaskScreen";
+import EditTaskScreen from "../screens/EditTaskScreen";
+
+const CreateTaskStack = createStackNavigator({
+  Create: CreateTaskScreen
+});
+
+const EditTaskStack = createStackNavigator({
+  Edit: EditTaskScreen
+});
 
 export default createSwitchNavigator({
-  // You could add another route here for authentication.
-  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Main: MainTabNavigator,
+  Create: CreateTaskStack,
+  Edit: EditTaskStack
 });
