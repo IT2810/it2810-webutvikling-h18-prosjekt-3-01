@@ -45,7 +45,7 @@ export default class CreateTaskScreen extends React.Component {
   }
 
   handleCreateTask = () => {
-      //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to create task
+      //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to create a new task
   }
 
 
