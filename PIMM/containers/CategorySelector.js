@@ -17,7 +17,7 @@ export default class CategorySelector extends Component {
 
     onPress = identifier => {
         switch(identifier){
-            case "importantUrgent": //importantUrgent
+            case "importanturgent": //importantUrgent
                 this.setState({
                     importantUrgentOpacity: 1,
                     importantNotUrgentOpacity: 0.5,
@@ -26,7 +26,7 @@ export default class CategorySelector extends Component {
                 }, this.props.handleCategoryChange(Colors.categoryGreen));
                 break;
 
-            case "importantNotUrgent": //importantNotUrgent
+            case "importantnoturgent": //importantNotUrgent
                 this.setState({
                     importantUrgentOpacity: 0.5,
                     importantNotUrgentOpacity: 1,
@@ -35,7 +35,7 @@ export default class CategorySelector extends Component {
                 }, this.props.handleCategoryChange(Colors.categoryOrange));
                 break;
 
-            case "notImportantUrgent": //notImportantUrgent
+            case "notimportanturgent": //notImportantUrgent
                 this.setState({
                     importantUrgentOpacity: 0.5,
                     importantNotUrgentOpacity: 0.5,
@@ -44,7 +44,7 @@ export default class CategorySelector extends Component {
                 }, this.props.handleCategoryChange(Colors.categoryBlue));
                 break;
 
-            case "notImportantNotUrgent": //notImportantNotUrgent
+            case "notimportantnoturgent": //notImportantNotUrgent
                 this.setState({
                     importantUrgentOpacity: 0.5,
                     importantNotUrgentOpacity: 0.5,
@@ -64,7 +64,7 @@ export default class CategorySelector extends Component {
                         category={"important\n&\n urgent"}
                         onPress={this.onPress}
                         textStyle={styles.tileText}
-                        identifier={"importantUrgent"}
+                        identifier={"importanturgent"}
                         style={{height: '100%', width: '100%'}}
                     />
                 </View>
@@ -73,7 +73,7 @@ export default class CategorySelector extends Component {
                         category={"important\n&\n not urgent"}
                         onPress={this.onPress}
                         textStyle={styles.tileText}
-                        identifier={"importantNotUrgent"}
+                        identifier={"importantnoturgent"}
                         style={{height: '100%', width: '100%'}}
                     />
                 </View>
@@ -82,7 +82,7 @@ export default class CategorySelector extends Component {
                         category={"not important\n&\n urgent"}
                         onPress={this.onPress}
                         textStyle={styles.tileText}
-                        identifier={"notImportantUrgent"}
+                        identifier={"notimportanturgent"}
                         style={{height: '100%', width: '100%'}}
                     />
                 </View>
@@ -91,7 +91,7 @@ export default class CategorySelector extends Component {
                         category={"not important\n&\nnot urgent"}
                         onPress={this.onPress}
                         textStyle={styles.tileText}
-                        identifier={"notImportantNotUrgent"}
+                        identifier={"notimportantnoturgent"}
                         style={{height: '100%', width: '100%'}}
                     />
                 </View>
