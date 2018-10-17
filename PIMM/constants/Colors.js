@@ -8,10 +8,7 @@ export default {
   //--Color Scheme--//
 
   // General
-  whiteBackround: "#ffffff",
-
-  // General
-  whiteBackround: "#FFFFFF",
+  appBackground: "#fff",
 
   //Progressbar
   stepBarStart: "#e55f00",
