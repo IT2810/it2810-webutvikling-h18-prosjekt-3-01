@@ -13,6 +13,7 @@ import DateSelector from "../components/DateSelector";
 import ReminderSelector from "../components/ReminderSelector";
 import DeleteButton from "../components/DeleteButton";
 import moment from "moment";
+import { TasksConsumer } from "../containers/Tasks.context";
 
 export default class EditTaskScreen extends React.Component {
   constructor(props) {
@@ -68,45 +69,55 @@ export default class EditTaskScreen extends React.Component {
     //TODO Delete the current task. Implement "You sure you want to delete this task"-check
   };
 
+  //TODO Check if <TaskConsumer> is used correctly here:
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View
-          style={[styles.wrapper, { backgroundColor: this.state.screenColor }]}
-        >
-          <Text style={styles.descriptionText}>Task Description</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={text => this.setState({ descriptionText: text })}
-            value={this.state.descriptionText}
-            placeholder={this.state.descriptionText}
-            placeholderTextColor={"#fff"}
-            underlineColorAndroid={"rgba(0,0,0,0)"}
-          />
-        </View>
-        <Text style={[styles.label, { color: this.state.screenColor }]}>
-          Importance & Urgence
-        </Text>
-        <CategorySelector handleCategoryChange={this.handleCategoryChange} />
-        <DateSelector
-          screenColor={this.state.screenColor}
-          handleDateChange={this.handleDateChange}
-        />
-        <ReminderSelector
-          screenColor={this.state.screenColor}
-          handleReminderChange={this.handleReminderChange}
-        />
-        <TouchableOpacity
-          style={[
-            styles.saveChangesButton,
-            { backgroundColor: this.state.screenColor }
-          ]}
-          onPress={this.handleSaveChanges}
-        >
-          <Text style={styles.buttonText}>Save Changes</Text>
-        </TouchableOpacity>
-        <DeleteButton />
-      </ScrollView>
+      <TasksConsumer>
+        {({ allTasks, addTask }) => (
+          <ScrollView style={styles.container}>
+            <View
+              style={[
+                styles.wrapper,
+                { backgroundColor: this.state.screenColor }
+              ]}
+            >
+              <Text style={styles.descriptionText}>Task Description</Text>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={text => this.setState({ descriptionText: text })}
+                value={this.state.descriptionText}
+                placeholder={this.state.descriptionText}
+                placeholderTextColor={"#fff"}
+                underlineColorAndroid={"rgba(0,0,0,0)"}
+              />
+            </View>
+            <Text style={[styles.label, { color: this.state.screenColor }]}>
+              Importance & Urgence
+            </Text>
+            <CategorySelector
+              handleCategoryChange={this.handleCategoryChange}
+            />
+            <DateSelector
+              screenColor={this.state.screenColor}
+              handleDateChange={this.handleDateChange}
+            />
+            <ReminderSelector
+              screenColor={this.state.screenColor}
+              handleReminderChange={this.handleReminderChange}
+            />
+            <TouchableOpacity
+              style={[
+                styles.saveChangesButton,
+                { backgroundColor: this.state.screenColor }
+              ]}
+              onPress={this.handleSaveChanges}
+            >
+              <Text style={styles.buttonText}>Save Changes</Text>
+            </TouchableOpacity>
+            <DeleteButton />
+          </ScrollView>
+        )}
+      </TasksConsumer>
     );
   }
 }
