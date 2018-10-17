@@ -46,9 +46,9 @@ export default class ReminderSelector extends Component {
             </Text>
           }
         >
-          <MenuFilterItem onPress={this.handleReminderChoice} filter={"1 hour before"}>1 hour before</MenuFilterItem>
-          <MenuFilterItem onPress={this.handleReminderChoice} filter={"2 hours before"}>2 hours before</MenuFilterItem>
-          <MenuFilterItem onPress={this.handleReminderChoice} filter={"5 hours before"}>5 hours before</MenuFilterItem>
+          <MenuFilterItem onPress={this.handleReminderChoice} filter={1}>1 hour before</MenuFilterItem>
+          <MenuFilterItem onPress={this.handleReminderChoice} filter={2}>2 hours before</MenuFilterItem>
+          <MenuFilterItem onPress={this.handleReminderChoice} filter={3}>3 hours before</MenuFilterItem>
         </Menu>
         <Text
           onPress={this.showMenu}

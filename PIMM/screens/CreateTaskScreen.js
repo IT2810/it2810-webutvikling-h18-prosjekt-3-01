@@ -4,6 +4,7 @@ import Colors from "../constants/Colors";
 import CategorySelector from "../containers/CategorySelector";
 import DateSelector from "../components/DateSelector";
 import ReminderSelector from "../components/ReminderSelector";
+import moment from "moment";
 
 export default class CreateTaskScreen extends React.Component {
   constructor(props) {
@@ -13,10 +14,11 @@ export default class CreateTaskScreen extends React.Component {
         descriptionText: '',
         chosenDate: '',
         reminder: '',
+        calculatedReminderDate: '',
     };
   }
   handleReminderChange = reminder => {
-      this.setState({reminder: reminder})
+      this.setState({reminder: reminder}, this.calculateReminderTime);
   }
 
   handleDateChange = date => {
@@ -34,13 +36,16 @@ export default class CreateTaskScreen extends React.Component {
     headerTitleStyle: { color: Colors.darkGray }
   };
 
-  calculateReminderTime = (reminder) => {
-      //TODO subtract 'reminder' from chosenDate
-      //https://stackoverflow.com/questions/45859935/how-to-subtract-and-plus-date-in-react-native
+  calculateReminderTime = () => {
+      var reminderDateTime = moment(this.state.chosenDate).clone();
+      reminderDateTime = reminderDateTime.subtract(this.state.reminder, "hours");
+      this.setState({
+          calculatedReminderDate: reminderDateTime.format("YYYY-MM-DD HH:mm"),
+      });
   }
 
   handleCreateTask = () => {
-      //TODO Pass along descriptionText, chosenDate, reminder and ScreenColor to create task
+      //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to create task
   }
 
 

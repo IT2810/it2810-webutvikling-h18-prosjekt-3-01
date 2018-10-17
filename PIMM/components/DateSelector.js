@@ -34,8 +34,8 @@ export default class DateSelector extends Component {
   handleDatePicked = datetime => {
     this.setState({
       isDatePickerVisible: false,
-      chosenDate: moment(datetime).format("MMMM, Do YYYY HH:mm")
-    }, this.props.handleDateChange(moment(datetime).format("MMMM, Do YYYY HH:mm")));
+      chosenDate: moment(datetime).format("YYYY-MM-DD HH:mm")
+    }, this.props.handleDateChange(moment(datetime).format("YYYY-MM-DD HH:mm")));
 
   };
 

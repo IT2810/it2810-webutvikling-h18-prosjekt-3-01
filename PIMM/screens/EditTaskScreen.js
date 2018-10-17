@@ -12,6 +12,7 @@ import CategorySelector from "../containers/CategorySelector";
 import DateSelector from "../components/DateSelector";
 import ReminderSelector from "../components/ReminderSelector";
 import DeleteButton from "../components/DeleteButton";
+import moment from "moment";
 
 export default class EditTaskScreen extends React.Component {
   constructor(props) {
@@ -20,12 +21,13 @@ export default class EditTaskScreen extends React.Component {
       screenColor: Colors.categoryGreen,
       descriptionText: "",
       chosenDate: "",
-      reminder: ""
+      reminder: "",
+      calculatedReminderDate: ""
     };
   }
 
   handleReminderChange = reminder => {
-    this.setState({ reminder: reminder });
+    this.setState({ reminder: reminder }, this.calculateReminderTime);
   };
 
   handleDateChange = date => {
@@ -42,16 +44,20 @@ export default class EditTaskScreen extends React.Component {
     headerTitleStyle: { color: Colors.darkGray }
   };
 
+  calculateReminderTime = () => {
+    var reminderDateTime = moment(this.state.chosenDate).clone();
+    reminderDateTime = reminderDateTime.subtract(this.state.reminder, "hours");
+    this.setState({
+      calculatedReminderDate: reminderDateTime.format("YYYY-MM-DD HH:mm")
+    });
+  };
+
   loadDataToState = () => {
     //TODO Method that updates component state with relevant persistent data
   };
 
-  calculateReminderTime = reminder => {
-    //TODO subtract 'reminder' from chosenDate
-  };
-
   handleSaveChanges = () => {
-    //TODO Pass along descriptionText, chosenDate, reminder and ScreenColor to save changes
+    //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to save changes
   };
 
   handleDeleteButton = () => {
