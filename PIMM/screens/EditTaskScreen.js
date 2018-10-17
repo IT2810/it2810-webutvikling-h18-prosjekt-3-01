@@ -22,7 +22,8 @@ export default class EditTaskScreen extends React.Component {
       descriptionText: "",
       chosenDate: "",
       reminder: "",
-      calculatedReminderDate: ""
+      calculatedReminderDate: "",
+      category: ""
     };
   }
 
@@ -35,8 +36,11 @@ export default class EditTaskScreen extends React.Component {
   };
 
   //--Color change--//
-  handleCategoryChange = color => {
-    this.setState({ screenColor: color });
+  handleCategoryChange = (color, category) => {
+    this.setState({
+      screenColor: color,
+      category: category
+    });
   };
 
   static navigationOptions = {
@@ -57,7 +61,7 @@ export default class EditTaskScreen extends React.Component {
   };
 
   handleSaveChanges = () => {
-    //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to save changes
+    //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and category to save changes
   };
 
   handleDeleteButton = () => {

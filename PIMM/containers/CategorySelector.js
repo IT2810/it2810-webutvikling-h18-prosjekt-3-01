@@ -23,7 +23,7 @@ export default class CategorySelector extends Component {
                     importantNotUrgentOpacity: 0.5,
                     notImportantUrgentOpacity: 0.5,
                     notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryGreen));
+                }, this.props.handleCategoryChange(Colors.categoryGreen, identifier));
                 break;
 
             case "importantnoturgent": //importantNotUrgent
@@ -32,7 +32,7 @@ export default class CategorySelector extends Component {
                     importantNotUrgentOpacity: 1,
                     notImportantUrgentOpacity: 0.5,
                     notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryOrange));
+                }, this.props.handleCategoryChange(Colors.categoryOrange, identifier));
                 break;
 
             case "notimportanturgent": //notImportantUrgent
@@ -41,7 +41,7 @@ export default class CategorySelector extends Component {
                     importantNotUrgentOpacity: 0.5,
                     notImportantUrgentOpacity: 1,
                     notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryBlue));
+                }, this.props.handleCategoryChange(Colors.categoryBlue, identifier));
                 break;
 
             case "notimportantnoturgent": //notImportantNotUrgent
@@ -50,7 +50,7 @@ export default class CategorySelector extends Component {
                     importantNotUrgentOpacity: 0.5,
                     notImportantUrgentOpacity: 0.5,
                     notImportantNotUrgentOpacity: 1,
-                }, this.props.handleCategoryChange(Colors.categoryRed));
+                }, this.props.handleCategoryChange(Colors.categoryRed, identifier));
                 break;
         }
 

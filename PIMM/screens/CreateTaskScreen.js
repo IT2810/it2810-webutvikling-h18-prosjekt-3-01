@@ -5,6 +5,7 @@ import CategorySelector from "../containers/CategorySelector";
 import DateSelector from "../components/DateSelector";
 import ReminderSelector from "../components/ReminderSelector";
 import moment from "moment";
+import { TasksConsumer } from "../containers/Tasks.context";
 
 export default class CreateTaskScreen extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class CreateTaskScreen extends React.Component {
         chosenDate: '',
         reminder: '',
         calculatedReminderDate: '',
+        category: '',
     };
   }
   handleReminderChange = reminder => {
@@ -26,8 +28,11 @@ export default class CreateTaskScreen extends React.Component {
   }
 
   //--Color change--//
-    handleCategoryChange = color => {
-        this.setState({screenColor: color})
+    handleCategoryChange = (color, category) => {
+        this.setState({
+            screenColor: color,
+            category: category,
+        });
     }
 
 
@@ -45,50 +50,54 @@ export default class CreateTaskScreen extends React.Component {
   }
 
   handleCreateTask = () => {
-      //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and ScreenColor to create a new task
+      //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and category to create a new task
   }
 
-
+  //TODO Check if <TasksConsumer> is used correctly here:
   render() {
     return (
-      <View style={styles.container}>
-          <View style={[styles.wrapper, {backgroundColor: this.state.screenColor}]}>
-            <Text style={styles.descriptionText}>
-                Task Description
-            </Text>
-            <TextInput
-                style={styles.textInput}
-                onChangeText={(text) => this.setState({descriptionText: text})}
-                value={this.state.descriptionText}
-                placeholder={"What do you want to remember?"}
-                placeholderTextColor={"#fff"}
-                underlineColorAndroid={'rgba(0,0,0,0)' }
-            />
-          </View>
-          <Text style={[styles.label, {color: this.state.screenColor}]}>
-             Importance & Urgence
-          </Text>
-          <CategorySelector handleCategoryChange={this.handleCategoryChange}/>
-          <DateSelector
-              screenColor={this.state.screenColor}
-              handleDateChange={this.handleDateChange}
-          />
-          <ReminderSelector
-              screenColor={this.state.screenColor}
-              handleReminderChange={this.handleReminderChange}
-          />
-          <TouchableOpacity
-              style={[
-                  styles.saveChangesButton,
-                  {backgroundColor: this.state.screenColor}
-                  ]}
-              onPress={this.handleCreateTask}
-          >
-              <Text style={styles.buttonText}>
-                  Create task
+      <TasksConsumer>
+        {({ allTasks, addTask }) => (
+          <View style={styles.container}>
+              <View style={[styles.wrapper, {backgroundColor: this.state.screenColor}]}>
+                <Text style={styles.descriptionText}>
+                    Task Description
+                </Text>
+                <TextInput
+                    style={styles.textInput}
+                    onChangeText={(text) => this.setState({descriptionText: text})}
+                    value={this.state.descriptionText}
+                    placeholder={"What do you want to remember?"}
+                    placeholderTextColor={"#fff"}
+                    underlineColorAndroid={'rgba(0,0,0,0)' }
+                />
+              </View>
+              <Text style={[styles.label, {color: this.state.screenColor}]}>
+                 Importance & Urgence
               </Text>
-          </TouchableOpacity>
-      </View>
+              <CategorySelector handleCategoryChange={this.handleCategoryChange}/>
+              <DateSelector
+                  screenColor={this.state.screenColor}
+                  handleDateChange={this.handleDateChange}
+              />
+              <ReminderSelector
+                  screenColor={this.state.screenColor}
+                  handleReminderChange={this.handleReminderChange}
+              />
+              <TouchableOpacity
+                  style={[
+                      styles.saveChangesButton,
+                      {backgroundColor: this.state.screenColor}
+                      ]}
+                  onPress={this.handleCreateTask}
+              >
+                  <Text style={styles.buttonText}>
+                      Create task
+                  </Text>
+              </TouchableOpacity>
+          </View>
+        )}
+      </TasksConsumer>
     );
   }
 }
