@@ -114,7 +114,10 @@ export default class EditTaskScreen extends React.Component {
             >
               <Text style={styles.buttonText}>Save Changes</Text>
             </TouchableOpacity>
-            <DeleteButton />
+            <DeleteButton
+              screenColor={this.state.screenColor}
+              handleDeleteButton={this.handleDeleteButton}
+            />
           </ScrollView>
         )}
       </TasksConsumer>
