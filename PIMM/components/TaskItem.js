@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Platform,
+  TouchableOpacity
+} from "react-native";
 import { CheckBox } from "react-native-elements";
 import Moment from "moment";
+import { withNavigation } from "react-navigation";
 
 import Colors from "../constants/Colors";
 import { CrossPlatformIcon } from "../components/TextIcon";
@@ -13,78 +21,85 @@ const TaskItem = ({
   due,
   reminders,
   category,
-  completed
+  completed,
+  navigation
 }) => {
   return (
     <TasksConsumer>
       {({ toggleCompletedTask }) => (
-        <View
-          style={[
-            styles.wrapper,
-            {
-              backgroundColor: completed
-                ? Colors.taskCompletedBG
-                : Colors.taskNotCompletedBG
-            }
-          ]}
+        <TouchableOpacity
+          onLongPress={() => {
+            navigation.push("Edit", { taskId: taskId });
+          }}
         >
-          <CheckBox
-            onPress={() => toggleCompletedTask(taskId)}
-            checked={completed}
-            uncheckedIcon={
-              <CrossPlatformIcon
-                iconSize={25}
-                defaultColor={Colors.taskIcon}
-                name="square-outline"
-              />
-            }
-            checkedIcon={
-              <CrossPlatformIcon
-                iconSize={25}
-                defaultColor={Colors.taskIcon}
-                name="checkbox-outline"
-              />
-            }
-            containerStyle={styles.checkBoxContainer}
-          />
-          <Text
+          <View
             style={[
-              styles.taskText,
+              styles.wrapper,
               {
-                textDecorationLine: completed ? "line-through" : "none",
-                fontStyle: completed ? "italic" : "normal"
+                backgroundColor: completed
+                  ? Colors.taskCompletedBG
+                  : Colors.taskNotCompletedBG
               }
             ]}
           >
-            {description}
-          </Text>
-          {due && (
-            <View style={styles.dueDateWrapper}>
+            <CheckBox
+              onPress={() => toggleCompletedTask(taskId)}
+              checked={completed}
+              uncheckedIcon={
+                <CrossPlatformIcon
+                  iconSize={25}
+                  defaultColor={Colors.taskIcon}
+                  name="square-outline"
+                />
+              }
+              checkedIcon={
+                <CrossPlatformIcon
+                  iconSize={25}
+                  defaultColor={Colors.taskIcon}
+                  name="checkbox-outline"
+                />
+              }
+              containerStyle={styles.checkBoxContainer}
+            />
+            <Text
+              style={[
+                styles.taskText,
+                {
+                  textDecorationLine: completed ? "line-through" : "none",
+                  fontStyle: completed ? "italic" : "normal"
+                }
+              ]}
+            >
+              {description}
+            </Text>
+            {due && (
+              <View style={styles.dueDateWrapper}>
+                <CrossPlatformIcon
+                  iconSize={25}
+                  defaultColor={Colors.taskIcon}
+                  styles={{ marginBottom: 0 }}
+                  name="time"
+                />
+                <View style={styles.dueDateTimeWrapper}>
+                  <Text style={styles.timeClock}>
+                    {Moment(due).format("HH:mm")}
+                  </Text>
+                  <Text style={styles.timeDate}>
+                    {Moment(due).format("D. MMM")}
+                  </Text>
+                </View>
+              </View>
+            )}
+            {!!reminders.length && (
               <CrossPlatformIcon
                 iconSize={25}
                 defaultColor={Colors.taskIcon}
                 styles={{ marginBottom: 0 }}
-                name="time"
+                name="alarm"
               />
-              <View style={styles.dueDateTimeWrapper}>
-                <Text style={styles.timeClock}>
-                  {Moment(due).format("HH:mm")}
-                </Text>
-                <Text style={styles.timeDate}>
-                  {Moment(due).format("D. MMM")}
-                </Text>
-              </View>
-            </View>
-          )}
-          {!!reminders.length && (
-            <CrossPlatformIcon
-              iconSize={25}
-              defaultColor={Colors.taskIcon}
-              styles={{ marginBottom: 0 }}
-              name="alarm"
-            />
-          )}
-        </View>
+            )}
+          </View>
+        </TouchableOpacity>
       )}
     </TasksConsumer>
   );
@@ -119,4 +134,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TaskItem;
+export default withNavigation(TaskItem);

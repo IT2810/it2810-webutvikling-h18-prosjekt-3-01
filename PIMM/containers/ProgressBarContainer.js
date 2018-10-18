@@ -1,32 +1,35 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Platform } from "react-native";
+import { Notifications } from "expo";
+
 import ProgressBar from "../components/ProgressBar";
 import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dailyGoal: this.props.dailyGoal,
-      stepsToday: this.props.stepsToday
+  reachedStepGoal = () => {
+    const localNotification = {
+      title: "Good job! You reached your step goal!",
+      body: "Now you can relax, or maybe you want to walk more?",
+      ios: { sound: true },
+      android: {
+        channelId: "steps",
+        color: "yellow"
+      }
     };
-  }
+    Notifications.presentLocalNotificationAsync(localNotification);
+  };
 
-  goalReached() {
-    return this.state.stepsToday >= this.state.dailyGoal;
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState(state => ({
-        stepsToday: Math.min(state.stepsToday + 500, state.dailyGoal)
-      }));
-    }, 1000);
+  isGoalReached() {
+    const isReached = this.props.stepsToday >= this.props.dailyGoal;
+    if (isReached) {
+      this.reachedStepGoal();
+    }
+    return isReached;
   }
 
   render() {
-    const { dailyGoal, stepsToday } = this.state;
+    const { dailyGoal, stepsToday } = this.props;
 
     return (
       <View style={styles.container}>
@@ -39,15 +42,17 @@ export default class ProgressBarContainer extends Component {
           <ProgressBar
             stepsToday={stepsToday}
             dailyGoal={dailyGoal}
-            progress={stepsToday / dailyGoal}
+            progress={Math.min(stepsToday, dailyGoal) / dailyGoal}
             duration={500}
           />
           <TextIcon
-            focused={this.goalReached()}
-            focusedColor={Colors.stepBarFinished}
+            focused={this.isGoalReached()}
+            focusedColor={Colors.stepBarFinishedIcon}
             name={
               Platform.OS === "ios"
-                ? `ios-checkmark-circle${this.goalReached() ? "" : "-outline"}`
+                ? `ios-checkmark-circle${
+                    this.isGoalReached() ? "" : "-outline"
+                  }`
                 : `md-checkmark-circle-outline`
             }
           />
@@ -59,8 +64,7 @@ export default class ProgressBarContainer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10
+    flex: 1
   },
   progressContainer: {
     flexDirection: "row",

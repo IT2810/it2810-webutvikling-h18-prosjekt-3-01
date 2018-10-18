@@ -5,7 +5,8 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Button
 } from "react-native";
 import Colors from "../constants/Colors";
 import CategorySelector from "../containers/CategorySelector";
@@ -19,6 +20,7 @@ export default class EditTaskScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      taskId: this.props.navigation.getParam("taskId", "NO-ID"),
       screenColor: Colors.categoryGreen,
       descriptionText: "",
       chosenDate: "",
@@ -45,8 +47,7 @@ export default class EditTaskScreen extends React.Component {
   };
 
   static navigationOptions = {
-    title: "Edit a task",
-    headerTitleStyle: { color: Colors.darkGray }
+    title: "Edit a task"
   };
 
   calculateReminderTime = () => {
@@ -117,6 +118,13 @@ export default class EditTaskScreen extends React.Component {
             <DeleteButton
               screenColor={this.state.screenColor}
               handleDeleteButton={this.handleDeleteButton}
+            />
+            <Text>This is the edit task screen</Text>
+            <Text>taskId: {JSON.stringify(this.state.taskId)}</Text>
+
+            <Button
+              title="x"
+              onPress={() => this.props.navigation.navigate("Tasks")}
             />
           </ScrollView>
         )}
