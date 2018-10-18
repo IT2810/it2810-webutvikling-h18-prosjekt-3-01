@@ -20,8 +20,8 @@ export default class StepScreen extends React.Component {
     pedometerAvailable: "checking",
     stepsToday: 0,
     stepsThisWeek: 0,
-    dailyGoal: 2131,
-    pedometerError: false,
+    dailyGoal: 10000,
+    pedometerError: true,
     refreshing: false
   };
 
@@ -88,7 +88,6 @@ export default class StepScreen extends React.Component {
     );
     this.updateStepsToday();
     this.updateStepsThisWeek();
-    this.setState({ refreshing: false });
   };
 
   _unsubscribe = () => {
