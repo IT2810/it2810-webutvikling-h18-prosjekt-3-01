@@ -21,7 +21,7 @@ export default class StepScreen extends React.Component {
     stepsToday: 0,
     stepsThisWeek: 0,
     dailyGoal: 10000,
-    pedometerError: true,
+    pedometerError: false,
     refreshing: false
   };
 

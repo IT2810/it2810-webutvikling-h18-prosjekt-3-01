@@ -11,29 +11,88 @@ class TasksProvider extends Component {
     this.state = {
       allTasks: {
         1: {
-          description: "THIS IS green importanturgent",
+          description:
+            "THIS IS green importanturgent THIS IS green hei h importanturgent",
           due: null,
           reminders: [],
           category: "importanturgent",
-          completed: true
+          completed: false
         },
         2: {
           description:
-            "THIS IS orange notimportanturgent THIS IS orange notimportanturgent",
+            "THIS IS orange notimpor tanturgent THIS IS orange notimpor tanturgent",
           due: new Date(),
-          reminders: [new Date()],
+          reminders: [],
           category: "notimportanturgent",
           completed: false
         },
         3: {
-          description: "THIS IS blue importantnoturgent",
+          description: "THIS IS blue important noturgent",
           due: null,
           reminders: [],
           category: "importantnoturgent",
           completed: false
         },
         4: {
-          description: "THIS IS red notimportantnoturgent",
+          description: "THIS IS red notimportan tnoturgent",
+          due: new Date(),
+          reminders: [new Date()],
+          category: "notimportantnoturgent",
+          completed: false
+        },
+        5: {
+          description: "THIS IS green importanturgent",
+          due: null,
+          reminders: [],
+          category: "importanturgent",
+          completed: false
+        },
+        6: {
+          description:
+            "THIS IS orange notimport anturgent THIS IS orange notimpor tanturgent",
+          due: new Date(),
+          reminders: [new Date()],
+          category: "notimportanturgent",
+          completed: false
+        },
+        7: {
+          description: "THIS IS blue importantnoturgent",
+          due: null,
+          reminders: [],
+          category: "importantnoturgent",
+          completed: false
+        },
+        8: {
+          description: "THIS IS red notimporta ntnoturgent",
+          due: new Date(),
+          reminders: [new Date()],
+          category: "notimportantnoturgent",
+          completed: false
+        },
+        9: {
+          description: "THIS IS green importanturgent",
+          due: null,
+          reminders: [],
+          category: "importanturgent",
+          completed: true
+        },
+        10: {
+          description:
+            "THIS IS orange notimp ortan turgent THIS IS orange notimport anturgent",
+          due: new Date(),
+          reminders: [new Date()],
+          category: "notimportanturgent",
+          completed: false
+        },
+        11: {
+          description: "THIS IS blue importan tnoturgent",
+          due: null,
+          reminders: [],
+          category: "importantnoturgent",
+          completed: false
+        },
+        12: {
+          description: "THIS IS red notimportant noturgent",
           due: new Date(),
           reminders: [new Date()],
           category: "notimportantnoturgent",

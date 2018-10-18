@@ -9,6 +9,7 @@ export default {
 
   // General
   appBackground: "#fff",
+  addTaskButton: primaryBlue,
 
   //Progressbar
   stepBarStart: "#e55f00",
