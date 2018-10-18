@@ -4,10 +4,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Platform,
   TouchableOpacity
 } from "react-native";
-import { Button } from "react-native-elements";
 
 import Colors from "../constants/Colors";
 
@@ -60,7 +58,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     flex: 1,
-    alignItems: "center"
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 5
   },
   toggleButtonText: { color: Colors.taskToggleCompleted }
 });

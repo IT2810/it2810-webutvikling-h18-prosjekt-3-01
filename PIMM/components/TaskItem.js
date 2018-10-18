@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  Platform,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
 import Moment from "moment";
 import { withNavigation } from "react-navigation";
@@ -31,74 +24,78 @@ const TaskItem = ({
           onLongPress={() => {
             navigation.push("Edit", { taskId: taskId });
           }}
+          style={[
+            styles.wrapper,
+            {
+              backgroundColor: completed
+                ? Colors.taskCompletedBG
+                : Colors.taskNotCompletedBG
+            }
+          ]}
         >
-          <View
-            style={[
-              styles.wrapper,
-              {
-                backgroundColor: completed
-                  ? Colors.taskCompletedBG
-                  : Colors.taskNotCompletedBG
-              }
-            ]}
-          >
-            <CheckBox
-              onPress={() => toggleCompletedTask(taskId)}
-              checked={completed}
-              uncheckedIcon={
-                <CrossPlatformIcon
-                  iconSize={25}
-                  defaultColor={Colors.taskIcon}
-                  name="square-outline"
-                />
-              }
-              checkedIcon={
-                <CrossPlatformIcon
-                  iconSize={25}
-                  defaultColor={Colors.taskIcon}
-                  name="checkbox-outline"
-                />
-              }
-              containerStyle={styles.checkBoxContainer}
-            />
-            <Text
-              style={[
-                styles.taskText,
-                {
-                  textDecorationLine: completed ? "line-through" : "none",
-                  fontStyle: completed ? "italic" : "normal"
-                }
-              ]}
-            >
-              {description}
-            </Text>
-            {due && (
-              <View style={styles.dueDateWrapper}>
-                <CrossPlatformIcon
-                  iconSize={25}
-                  defaultColor={Colors.taskIcon}
-                  styles={{ marginBottom: 0 }}
-                  name="time"
-                />
-                <View style={styles.dueDateTimeWrapper}>
-                  <Text style={styles.timeClock}>
-                    {Moment(due).format("HH:mm")}
-                  </Text>
-                  <Text style={styles.timeDate}>
-                    {Moment(due).format("D. MMM")}
-                  </Text>
-                </View>
-              </View>
-            )}
-            {!!reminders.length && (
+          <CheckBox
+            onPress={() => toggleCompletedTask(taskId)}
+            checked={completed}
+            uncheckedIcon={
               <CrossPlatformIcon
                 iconSize={25}
                 defaultColor={Colors.taskIcon}
-                styles={{ marginBottom: 0 }}
-                name="alarm"
+                name="square-outline"
               />
-            )}
-          </View>
+            }
+            checkedIcon={
+              <CrossPlatformIcon
+                iconSize={25}
+                defaultColor={Colors.taskIcon}
+                name="checkbox-outline"
+              />
+            }
+            containerStyle={styles.checkBoxContainer}
+          />
+          <Text
+            style={[
+              styles.taskText,
+              {
+                textDecorationLine: completed ? "line-through" : "none",
+                fontStyle: completed ? "italic" : "normal"
+              }
+            ]}
+          >
+            {description}
+          </Text>
+
+          {(due || !!reminders.length) && (
+            <View style={styles.iconsContainer}>
+              <View style={styles.iconsWrapper}>
+                {due && (
+                  <View style={styles.dueDateWrapper}>
+                    <CrossPlatformIcon
+                      iconSize={25}
+                      defaultColor={Colors.taskIcon}
+                      styles={{ marginBottom: 0 }}
+                      name="time"
+                    />
+                    <View style={styles.dueDateTimeWrapper}>
+                      <Text style={styles.timeClock}>
+                        {Moment(due).format("HH:mm")}
+                      </Text>
+                      <Text style={styles.timeDate}>
+                        {Moment(due).format("D. MMM")}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+                {!!reminders.length && (
+                  <CrossPlatformIcon
+                    iconSize={25}
+                    defaultColor={Colors.taskIcon}
+                    styles={{ marginBottom: 0 }}
+                    name="alarm"
+                  />
+                )}
+              </View>
+            </View>
+          )}
         </TouchableOpacity>
       )}
     </TasksConsumer>
@@ -107,14 +104,34 @@ const TaskItem = ({
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 15,
+    paddingVertical: 5,
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 10,
     marginTop: 10
   },
-  taskText: { color: Colors.taskText, flex: 3 },
+  checkBoxContainer: {
+    marginVertical: 0,
+    marginHorizontal: 0,
+    paddingVertical: 5,
+    paddingHorizontal: 5
+  },
+  taskText: {
+    color: Colors.taskText,
+    flex: 1
+  },
+  iconsContainer: {
+    width: 90,
+    marginLeft: 6
+  },
+  iconsWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center"
+  },
   dueDateWrapper: {
     flex: 1,
     flexDirection: "row",
@@ -122,16 +139,11 @@ const styles = StyleSheet.create({
   },
   dueDateTimeWrapper: {
     flex: 1,
+    flexWrap: "nowrap",
     alignItems: "center"
   },
   timeClock: { fontWeight: "bold", fontSize: 17, color: Colors.taskText },
-  timeDate: { fontSize: 13, color: Colors.taskText },
-  checkBoxContainer: {
-    marginVertical: 0,
-    marginHorizontal: 0,
-    paddingVertical: 0,
-    paddingHorizontal: 0
-  }
+  timeDate: { fontSize: 13, color: Colors.taskText }
 });
 
 export default withNavigation(TaskItem);
