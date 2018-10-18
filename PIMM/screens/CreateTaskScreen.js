@@ -1,40 +1,117 @@
 import React from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import Colors from "../constants/Colors";
+import CategorySelector from "../containers/CategorySelector";
+import DateSelector from "../components/DateSelector";
+import ReminderSelector from "../components/ReminderSelector";
+import moment from "moment";
+import { TasksConsumer } from "../containers/Tasks.context";
 import { createStackNavigator } from "react-navigation";
 import { Button } from "react-native-elements";
+
 export default class CreateTaskScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      screenColor: Colors.categoryGreen,
+      descriptionText: "",
+      chosenDate: "",
+      reminder: "",
+      calculatedReminderDate: "",
+      category: ""
+    };
   }
-
-  static navigationOptions = {
-    title: "Create a new task",
+  handleReminderChange = reminder => {
+    this.setState({ reminder: reminder }, this.calculateReminderTime);
   };
 
-  // This is how you get the provided state and functions from the tasks context provider
-  // Use where you need to use the variables.
-  // <TasksConsumer>
-  //   {({ allTasks, toggleCompletedTask }) => (
-  //       <Text h1 style={styles.title}>
-  //         Create new task yo
-  //       </Text>
-  //
-  //   )}
-  // </TasksConsumer>
+  handleDateChange = date => {
+    this.setState({ chosenDate: date });
+  };
 
+  //--Color change--//
+  handleCategoryChange = (color, category) => {
+    this.setState({
+      screenColor: color,
+      category: category
+    });
+  };
+
+  static navigationOptions = {
+    title: "Create a new task"
+  };
+
+  calculateReminderTime = () => {
+    var reminderDateTime = moment(this.state.chosenDate).clone();
+    reminderDateTime = reminderDateTime.subtract(this.state.reminder, "hours");
+    this.setState({
+      calculatedReminderDate: reminderDateTime.format("YYYY-MM-DD HH:mm")
+    });
+  };
+
+  handleCreateTask = () => {
+    //TODO Pass along descriptionText, chosenDate, calculatedReminderDate and category to create a new task
+  };
+
+  //TODO Check if <TasksConsumer> is used correctly here:
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View>
-          <Text>This is create task screen</Text>
-        </View>
-        <Button
-          title="x"
-          onPress={() => this.props.navigation.navigate("Tasks")}
-        />
-      </ScrollView>
+      <TasksConsumer>
+        {({ allTasks, addTask }) => (
+          <View style={styles.container}>
+            <View
+              style={[
+                styles.wrapper,
+                { backgroundColor: this.state.screenColor }
+              ]}
+            >
+              <Text style={styles.descriptionText}>Task Description</Text>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={text => this.setState({ descriptionText: text })}
+                value={this.state.descriptionText}
+                placeholder={"What do you want to remember?"}
+                placeholderTextColor={"#fff"}
+                underlineColorAndroid={"rgba(0,0,0,0)"}
+              />
+            </View>
+            <Text style={[styles.label, { color: this.state.screenColor }]}>
+              Importance & Urgence
+            </Text>
+            <CategorySelector
+              handleCategoryChange={this.handleCategoryChange}
+            />
+            <DateSelector
+              screenColor={this.state.screenColor}
+              handleDateChange={this.handleDateChange}
+            />
+            <ReminderSelector
+              screenColor={this.state.screenColor}
+              handleReminderChange={this.handleReminderChange}
+            />
+            <TouchableOpacity
+              style={[
+                styles.saveChangesButton,
+                { backgroundColor: this.state.screenColor }
+              ]}
+              onPress={this.handleCreateTask}
+            >
+              <Text style={styles.buttonText}>Create task</Text>
+              <Button
+                title="x"
+                onPress={() => this.props.navigation.navigate("Tasks")}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      </TasksConsumer>
     );
   }
 }
@@ -42,7 +119,52 @@ export default class CreateTaskScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: "#fff"
+  },
+  wrapper: {
+    height: "20%",
+    padding: 20
+  },
+  descriptionText: {
+    marginBottom: "2%",
+    color: "#fff",
+    textAlign: "left",
+    fontWeight: "bold"
+  },
+  textInput: {
+    color: "#fff",
+    textAlign: "left",
+    borderBottomWidth: 1,
+    borderBottomColor: "#fff"
+  },
+  saveChangesButton: {
+    padding: 10,
+    backgroundColor: Colors.categoryGreen,
+    alignSelf: "center",
+    borderRadius: 10,
+    marginBottom: "2%"
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold"
+  },
+  label: {
+    fontWeight: "bold",
+    textAlign: "left",
+    marginTop: "6%",
+    marginLeft: "5%",
+    marginBottom: "2%"
   }
 });
+
+// This is how you get the provided state and functions from the tasks context provider
+// Use where you need to use the variables.
+// <TasksConsumer>
+//   {({ allTasks, toggleCompletedTask }) => (
+//       <Text h1 style={styles.title}>
+//         Create new task yo
+//       </Text>
+//
+//   )}
+// </TasksConsumer>
