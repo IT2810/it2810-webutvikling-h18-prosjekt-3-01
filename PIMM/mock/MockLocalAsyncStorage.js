@@ -1,34 +1,32 @@
-import { AsyncStorage } from "react-native";
+import MockAsyncStorage from "./MockAsyncStorage";
 
-const TASK_KEY = "taskKey";
+const storageCache = {};
+const AsyncStorage = new MockAsyncStorage(storageCache);
+
+jest.setMock("AsyncStorage", AsyncStorage);
+
 
 export async function saveData(dataKey, dataValue) {
   let stringifiedVal = stringify(dataValue);
   try {
     await AsyncStorage.setItem(dataKey, stringifiedVal);
-  } catch (error) {
-    //Error saving data
-  }
+  } catch (error) {}
 }
 
 export async function loadData(dataKey) {
   try {
     let data = await AsyncStorage.getItem(dataKey);
     return parse(data);
-  } catch (error) {
-    //Error retrieving data
-  }
+  } catch (error) {}
 }
 
 export async function deleteData(dataKey) {
   try {
     await AsyncStorage.removeItem(dataKey);
-  } catch (error) {
-    //Could not delete item with key: dataKey
-  }
+  } catch (error) {}
 }
 
-//--Helper functions for this file--//
+//--Helper functions mocked--//
 function parse(dataString) {
   return JSON.parse(dataString);
 }
