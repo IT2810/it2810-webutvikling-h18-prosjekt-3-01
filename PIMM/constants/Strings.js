@@ -14,5 +14,5 @@ export default {
   },
 
   pedometerUnavailable:
-    "Pedometer is not available on your device, so the steps cannot load. \nHave you granted the permissions?"
+    "Pedometer is not available on your device, so the steps cannot load. \nHave you granted the permissions? Pull down to update."
 };

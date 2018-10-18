@@ -6,7 +6,8 @@ import {
   View,
   Text,
   TextInput,
-  Image
+  Image,
+  RefreshControl
 } from "react-native";
 import ProgressBarContainer from "../containers/ProgressBarContainer";
 import StatisticsContainer from "../containers/StatisticsContainer";
@@ -19,8 +20,9 @@ export default class StepScreen extends React.Component {
     pedometerAvailable: "checking",
     stepsToday: 0,
     stepsThisWeek: 0,
-    dailyGoal: 6800,
-    pedometerError: false
+    dailyGoal: 10000,
+    pedometerError: true,
+    refreshing: false
   };
 
   static navigationOptions = {
@@ -93,9 +95,23 @@ export default class StepScreen extends React.Component {
     this._subscription = null;
   };
 
+  updatePedometer = () => {
+    this.setState({ refreshing: true, pedometerError: false });
+    this._subscribe();
+    this.setState({ refreshing: false });
+  };
+
   renderErrorMessage() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.updatePedometer}
+          />
+        }
+      >
         <View style={styles.stepsContainer}>
           <Text style={styles.quoteText}>{Strings.pedometerUnavailable}</Text>
         </View>
