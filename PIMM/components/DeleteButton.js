@@ -1,28 +1,31 @@
-import React, { Component } from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import React from "react";
+import { TouchableOpacity } from "react-native";
+import { withNavigation } from "react-navigation";
+
 import { CrossPlatformIcon } from "../components/TextIcon";
-import Colors from "../constants/Colors";
 
-export default class DeleteButton extends Component {
-  render() {
-      return(
-          <View>
-              <TouchableOpacity
-                  style={styles.touchable}
-                  onPress={this.props.handleDeleteButton}
-              >
-                  <CrossPlatformIcon
-                      iconSize={45}
-                      defaultColor={this.props.screenColor}
-                      name="trash"
-                  />
-              </TouchableOpacity>
-          </View>
-      )
-    //TODO Unfinished Component
-  }
-}
+const DeleteButton = ({
+  style,
+  handleDelete,
+  categoryColor,
+  taskId,
+  navigation
+}) => {
+  return (
+    <TouchableOpacity
+      style={style}
+      onPress={() => {
+        handleDelete(taskId);
+        navigation.navigate("Tasks");
+      }}
+    >
+      <CrossPlatformIcon
+        iconSize={30}
+        defaultColor={categoryColor}
+        name="trash"
+      />
+    </TouchableOpacity>
+  );
+};
 
-const styles = StyleSheet.create({
-    touchable: {}
-});
+export default withNavigation(DeleteButton);

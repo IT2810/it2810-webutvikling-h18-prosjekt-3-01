@@ -18,7 +18,6 @@ export default class CategorisedTasksContainer extends Component {
 
   getCategoryTasks = isCompleted => {
     const allTasks = this.props.allTasks;
-
     return Object.keys(allTasks)
       .filter(taskId => {
         return (

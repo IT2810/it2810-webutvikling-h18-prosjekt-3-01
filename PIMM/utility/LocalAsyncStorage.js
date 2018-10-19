@@ -1,6 +1,8 @@
 import { AsyncStorage } from "react-native";
 
-const TASK_KEY = "taskKey";
+export const TASK_KEY = "taskKey";
+export const STEP_KEY = "stepKey";
+export const IDCOUNTER = "idCounter";
 
 export async function saveData(dataKey, dataValue) {
   let stringifiedVal = stringify(dataValue);

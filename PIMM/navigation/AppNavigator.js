@@ -13,8 +13,13 @@ const EditTaskStack = createStackNavigator({
   Edit: EditTaskScreen
 });
 
-export default createSwitchNavigator({
-  Main: MainTabNavigator,
-  Create: CreateTaskStack,
-  Edit: EditTaskStack
-});
+export default createSwitchNavigator(
+  {
+    Main: MainTabNavigator,
+    Create: CreateTaskStack,
+    Edit: EditTaskStack
+  }
+  // ,{
+  //   initialRouteName: "Create"
+  // }
+);

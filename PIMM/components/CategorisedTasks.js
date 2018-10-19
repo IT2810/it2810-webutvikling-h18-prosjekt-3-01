@@ -24,19 +24,40 @@ const CategorisedTasks = ({
           {title}
         </Text>
       </View>
-      <View>
-        {unfinishedTasks}
-        {showCompleted && completedTasks}
-      </View>
-
-      <TouchableOpacity
-        onPress={() => toggleShowCompleted()}
-        style={styles.toggleButtonContainer}
-      >
-        <Text style={styles.toggleButtonText}>
-          {showCompleted ? "Hide completed tasks" : "Show completed tasks"}
+      {!unfinishedTasks.length && !completedTasks.length ? (
+        <Text style={styles.noTasks}>
+          You have no tasks in this category. {"\n"} Click the add button to add
+          some!
         </Text>
-      </TouchableOpacity>
+      ) : (
+        <View style={{ marginBottom: 10 }}>
+          <View>
+            {!!unfinishedTasks.length || !!completedTasks.length ? (
+              unfinishedTasks
+            ) : (
+              <Text style={styles.noTasks}>You have no unfinished tasks!</Text>
+            )}
+            {showCompleted &&
+              (!!completedTasks.length || !!unfinishedTasks.length ? (
+                completedTasks
+              ) : (
+                <Text style={styles.noTasks}>You have no completed tasks</Text>
+              ))}
+          </View>
+          {!!completedTasks.length && (
+            <TouchableOpacity
+              onPress={() => toggleShowCompleted()}
+              style={styles.toggleButtonContainer}
+            >
+              <Text style={styles.toggleButtonText}>
+                {showCompleted
+                  ? "Hide completed tasks"
+                  : "Show completed tasks"}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -55,14 +76,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   toggleButtonContainer: {
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 3,
     paddingHorizontal: 10,
     flex: 1,
     flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 5
+    justifyContent: "center"
   },
-  toggleButtonText: { color: Colors.taskToggleCompleted }
+  toggleButtonText: { color: Colors.taskToggleCompleted },
+  noTasks: {
+    margin: 10,
+    color: Colors.taskToggleCompleted,
+    textAlign: "center"
+  }
 });
 
 export default CategorisedTasks;
