@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with example props 1`] = `
+<Component
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+        "margin": 5,
+      },
+      Object {
+        "height": 18,
+      },
+    ]
+  }
+>
+  <Component
+    style={
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "borderColor": "#bebebe",
+          "borderRadius": 10,
+          "borderWidth": 2,
+        },
+      ]
+    }
+  >
+    <Component
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "backgroundColor": "#bebebe",
+            "borderRadius": 10,
+          },
+        ]
+      }
+    />
+    <UNDEFINED
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "top": 0,
+          },
+          Object {
+            "backgroundColor": undefined,
+          },
+          Object {
+            "borderRadius": 10,
+            "width": undefined,
+          },
+        ]
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#707070",
+          "fontSize": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      5000
+       /
+       
+      10000
+       steps
+    </Text>
+  </Component>
+</Component>
+`;

@@ -3,6 +3,9 @@ import { Icon } from "expo";
 import { Platform } from "react-native";
 import Colors from "../constants/Colors";
 
+/*
+Icon names for these components can be found at www.ionicons.com
+*/
 export default class TextIcon extends React.Component {
   render() {
     const { defaultColor, focusedColor, iconSize, styles } = this.props;

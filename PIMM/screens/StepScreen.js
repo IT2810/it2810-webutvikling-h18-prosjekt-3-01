@@ -40,12 +40,16 @@ export default class StepScreen extends React.Component {
     this._unsubscribe();
   }
 
+  /*
+  Updates the state of steps taken today if they can be fetched from device,
+  or else sets the error flag to true.
+  */
   updateStepsToday = () => {
     const start = new Date();
     start.setHours(0, 0, 0, 0);
     const end = new Date();
     end.setHours(24, 0, 0, 0);
-
+    
     Pedometer.getStepCountAsync(start, end).then(
       result => {
         this.setState({ stepsToday: result.steps });
@@ -55,7 +59,11 @@ export default class StepScreen extends React.Component {
       }
     );
   };
-
+  
+  /*
+  Updates the state of steps taken the last 7 days if they can be fetched from device,
+  or else sets the error flag to true.
+  */
   updateStepsThisWeek = () => {
     const end = new Date();
     const start = new Date();
@@ -71,6 +79,10 @@ export default class StepScreen extends React.Component {
     );
   };
 
+  /*
+  Sets a subscription on the stepscreen component, 
+  so that new steps are detected continuosly.
+  */
   _subscribe = () => {
     this._subscription = Pedometer.watchStepCount(result => {
       this.updateStepsToday();
@@ -82,6 +94,8 @@ export default class StepScreen extends React.Component {
         this.setState({
           pedometerAvailable: String(result)
         });
+        this.updateStepsToday();
+        this.updateStepsThisWeek();
       },
       error => {
         this.setState({
@@ -89,8 +103,6 @@ export default class StepScreen extends React.Component {
         });
       }
     );
-    this.updateStepsToday();
-    this.updateStepsThisWeek();
   };
 
   _unsubscribe = () => {
@@ -98,12 +110,20 @@ export default class StepScreen extends React.Component {
     this._subscription = null;
   };
 
+  /*
+  If something went wrong fetching steps or permissions have not been granted,
+  it is possible to pull down to update and try again.
+  */
   updatePedometer = () => {
     this.setState({ refreshing: true, pedometerError: false });
     this._subscribe();
     this.setState({ refreshing: false });
   };
 
+  /* 
+  Error message that is rendered if something went wrong or
+  if permissions have not been granted. 
+   */
   renderErrorMessage() {
     return (
       <ScrollView
