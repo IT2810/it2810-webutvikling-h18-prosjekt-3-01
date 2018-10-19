@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text, Animated } from "react-native";
 import Colors from "../constants/Colors";
 
+/* 
+This component is greatly inspired by 
+https://github.com/browniefed/react_native_responsive_progress_bar
+*/
 export default class ProgressBar extends Component {
   componentWillMount() {
     this.animation = new Animated.Value(this.props.progress);
   }
 
+  /* Animates the width and color of the fill */
   componentDidMount() {
     Animated.timing(this.animation, {
       toValue: this.props.progress,
@@ -33,12 +38,14 @@ export default class ProgressBar extends Component {
       duration
     } = this.props;
 
+    /* Interpolates the width of the progress bar fill */
     const widthInterpolated = this.animation.interpolate({
       inputRange: [0, 1],
       outputRange: ["0%", "100%"],
       extrapolate: "clamp"
     });
-
+    
+    /* Interpolates the color of the progress bar fill */
     const interpolateColor = this.animation.interpolate({
       inputRange: [0, 1],
       outputRange: [Colors.stepBarStart, Colors.stepBarFinished]
