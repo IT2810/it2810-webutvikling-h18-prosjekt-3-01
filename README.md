@@ -38,10 +38,14 @@ Features we would have implemented if the project was not intended as a prototyp
 ## Our approach
 In our first group meeting, we decided on which functionality we wanted to include in our app. The next step was to create some design sketches:
 
-<img src="design-sketches/Android%20Mobile%20%E2%80%93%20Tasks.png" width="400" />
-<img src="design-sketches/Android%20Mobile%20%E2%80%93%20Steps.png" width="400" />
-<img src="design-sketches/Android%20Mobile%20%E2%80%93%20Create%20new%20task.png" width="400" />
-<img src="design-sketches/Android%20Mobile%20%E2%80%93%20Edit%20-%20Delete%20task.png" width="400" />
+<div style="text-align:center" float="left">
+  <img src="design-sketches/Android%20Mobile%20%E2%80%93%20Tasks.png" width="400" />
+  <img src="design-sketches/Android%20Mobile%20%E2%80%93%20Steps.png" width="400" />
+</div>
+<div style="text-align:center" float="left">
+  <img src="design-sketches/Android%20Mobile%20%E2%80%93%20Create%20new%20task.png" width="400" />
+  <img src="design-sketches/Android%20Mobile%20%E2%80%93%20Edit%20-%20Delete%20task.png" width="400" />
+</div>
 
 The design sketches are a powerful tool in the early stages of the project as they allow us to accurately communicate our ideas and views to each other. Ensuring the whole team is on the same page regarding the development. They also simplified the initial task of setting up the Github repo as they allowed us to systematically define relevant development issues for the git issue board. By defining concrete issues of an appropriate scope early on in the project we could delegate tasks effectively to allow the team to work independently when we did not have the opportunity to meet up. The design sketches do not have to be as detailed or polished as ours; our initial sketches were on pen and paper. We highly recommend the use of any kind of sketches early on, whether they are visual or structural in nature. 
 
