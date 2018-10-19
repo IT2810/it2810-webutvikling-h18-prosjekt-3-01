@@ -28,7 +28,7 @@ export default {
   taskCompletedBG: "#e4e4e4",
   taskNotCompletedBG: "#fff",
   taskText: taskGray,
-  taskIcon: taskGray,
+  taskIcon: darkGray,
   taskToggleCompleted: defaultGray,
 
   //Statistics

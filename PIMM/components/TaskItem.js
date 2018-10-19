@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Moment from "moment";
+import moment from "moment";
 import { withNavigation } from "react-navigation";
 
 import Colors from "../constants/Colors";
@@ -10,9 +10,9 @@ import { TasksConsumer } from "../containers/Tasks.context";
 
 const TaskItem = ({
   taskId,
-  description,
-  due,
-  reminders,
+  descriptionText,
+  dueDate,
+  reminder,
   category,
   completed,
   navigation
@@ -61,13 +61,13 @@ const TaskItem = ({
               }
             ]}
           >
-            {description}
+            {descriptionText}
           </Text>
 
-          {(due || !!reminders.length) && (
+          {(dueDate || reminder) && (
             <View style={styles.iconsContainer}>
               <View style={styles.iconsWrapper}>
-                {due && (
+                {dueDate && (
                   <View style={styles.dueDateWrapper}>
                     <CrossPlatformIcon
                       iconSize={25}
@@ -77,15 +77,15 @@ const TaskItem = ({
                     />
                     <View style={styles.dueDateTimeWrapper}>
                       <Text style={styles.timeClock}>
-                        {Moment(due).format("HH:mm")}
+                        {moment(dueDate).format("HH:mm")}
                       </Text>
                       <Text style={styles.timeDate}>
-                        {Moment(due).format("D. MMM")}
+                        {moment(dueDate).format("D. MMM")}
                       </Text>
                     </View>
                   </View>
                 )}
-                {!!reminders.length && (
+                {reminder && (
                   <CrossPlatformIcon
                     iconSize={25}
                     defaultColor={Colors.taskIcon}

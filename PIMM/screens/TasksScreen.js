@@ -19,7 +19,7 @@ export default class TasksScreen extends React.Component {
     return (
       <TasksConsumer>
         {({ allTasks }) => (
-          <View>
+          <View contentContainerStyle={styles.container}>
             <ScrollView contentContainerStyle={styles.container}>
               <CategorisedTasksContainer
                 title="Important & Urgent"

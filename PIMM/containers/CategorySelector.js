@@ -1,135 +1,72 @@
-import React, { Component } from "react";
-import {StyleSheet, View} from "react-native";
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { TasksConsumer } from "../containers/Tasks.context";
 import CategoryTile from "../components/CategoryTile";
 import Colors from "../constants/Colors";
 
+const CategorySelector = ({
+  selectedCategory,
+  handleCategoryChange,
+  labelStyle,
+  categoryColor
+}) => {
+  const handleSelectCategory = identifier => {
+    handleCategoryChange(identifier);
+  };
 
-export default class CategorySelector extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            importantUrgentOpacity: 1,
-            importantNotUrgentOpacity: 0.5,
-            notImportantUrgentOpacity: 0.5,
-            notImportantNotUrgentOpacity: 0.5,
-        }
-    }
-
-    onPress = identifier => {
-        switch(identifier){
-            case "importanturgent": //importantUrgent
-                this.setState({
-                    importantUrgentOpacity: 1,
-                    importantNotUrgentOpacity: 0.5,
-                    notImportantUrgentOpacity: 0.5,
-                    notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryGreen, identifier));
-                break;
-
-            case "importantnoturgent": //importantNotUrgent
-                this.setState({
-                    importantUrgentOpacity: 0.5,
-                    importantNotUrgentOpacity: 1,
-                    notImportantUrgentOpacity: 0.5,
-                    notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryOrange, identifier));
-                break;
-
-            case "notimportanturgent": //notImportantUrgent
-                this.setState({
-                    importantUrgentOpacity: 0.5,
-                    importantNotUrgentOpacity: 0.5,
-                    notImportantUrgentOpacity: 1,
-                    notImportantNotUrgentOpacity: 0.5,
-                }, this.props.handleCategoryChange(Colors.categoryBlue, identifier));
-                break;
-
-            case "notimportantnoturgent": //notImportantNotUrgent
-                this.setState({
-                    importantUrgentOpacity: 0.5,
-                    importantNotUrgentOpacity: 0.5,
-                    notImportantUrgentOpacity: 0.5,
-                    notImportantNotUrgentOpacity: 1,
-                }, this.props.handleCategoryChange(Colors.categoryRed, identifier));
-                break;
-        }
-
-    };
-
-    render(){
-        return(
-            <View style={styles.container}>
-                <View style={[styles.importantUrgent, styles.basicTile, {opacity: this.state.importantUrgentOpacity}]}>
-                    <CategoryTile
-                        category={"important\n&\n urgent"}
-                        onPress={this.onPress}
-                        textStyle={styles.tileText}
-                        identifier={"importanturgent"}
-                        style={{height: '100%', width: '100%'}}
-                    />
-                </View>
-                <View style={[styles.importantNotUrgent, styles.basicTile, {opacity: this.state.importantNotUrgentOpacity}]}>
-                    <CategoryTile
-                        category={"important\n&\n not urgent"}
-                        onPress={this.onPress}
-                        textStyle={styles.tileText}
-                        identifier={"importantnoturgent"}
-                        style={{height: '100%', width: '100%'}}
-                    />
-                </View>
-                <View style={[styles.notImportantUrgent, styles.basicTile, {opacity: this.state.notImportantUrgentOpacity}]}>
-                    <CategoryTile
-                        category={"not important\n&\n urgent"}
-                        onPress={this.onPress}
-                        textStyle={styles.tileText}
-                        identifier={"notimportanturgent"}
-                        style={{height: '100%', width: '100%'}}
-                    />
-                </View>
-                <View style={[styles.notImportantNotUrgent, styles.basicTile, {opacity: this.state.notImportantNotUrgentOpacity}]}>
-                    <CategoryTile
-                        category={"not important\n&\nnot urgent"}
-                        onPress={this.onPress}
-                        textStyle={styles.tileText}
-                        identifier={"notimportantnoturgent"}
-                        style={{height: '100%', width: '100%'}}
-                    />
-                </View>
-            </View>
-        )
-    }
-}
-
+  return (
+    <TasksConsumer>
+      {({ getCategoryColor }) => (
+        <View>
+          <Text style={[labelStyle, styles.label, { color: categoryColor }]}>
+            IMPORTANCE & URGENCE
+          </Text>
+          <View style={styles.container}>
+            <CategoryTile
+              category={"importanturgent"}
+              categoryColor={getCategoryColor("importanturgent")}
+              handleSelectCategory={handleSelectCategory}
+              isSelected={selectedCategory === "importanturgent" ? true : false}
+            />
+            <CategoryTile
+              category={"importantnoturgent"}
+              categoryColor={getCategoryColor("importantnoturgent")}
+              handleSelectCategory={handleSelectCategory}
+              isSelected={
+                selectedCategory === "importantnoturgent" ? true : false
+              }
+            />
+            <CategoryTile
+              category={"notimportanturgent"}
+              categoryColor={getCategoryColor("notimportanturgent")}
+              handleSelectCategory={handleSelectCategory}
+              isSelected={
+                selectedCategory === "notimportanturgent" ? true : false
+              }
+            />
+            <CategoryTile
+              category={"notimportantnoturgent"}
+              categoryColor={getCategoryColor("notimportantnoturgent")}
+              handleSelectCategory={handleSelectCategory}
+              isSelected={
+                selectedCategory === "notimportantnoturgent" ? true : false
+              }
+            />
+          </View>
+        </View>
+      )}
+    </TasksConsumer>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: "center",
-    },
-    basicTile: {
-        margin: '1%',
-        width: '45%',
-        height: '43.45%',
-    },
-    importantUrgent: {
-        backgroundColor: Colors.categoryGreen,
-    },
-    importantNotUrgent: {
-        backgroundColor: Colors.categoryOrange,
-
-    },
-    notImportantUrgent: {
-        backgroundColor: Colors.categoryBlue,
-    },
-    notImportantNotUrgent: {
-        backgroundColor: Colors.categoryRed,
-    },
-    tileText: {
-        textAlign: "center",
-        fontWeight: "bold",
-        color: "#fff",
-        marginTop: '5%',
-    }
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    paddingHorizontal: 0
+  },
+  label: { marginBottom: 10 }
 });
+
+export default CategorySelector;

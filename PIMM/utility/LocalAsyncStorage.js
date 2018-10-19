@@ -1,7 +1,8 @@
 import { AsyncStorage } from "react-native";
 
-const TASK_KEY = "taskKey";
-const STEP_KEY = "stepKey";
+export const TASK_KEY = "taskKey";
+export const STEP_KEY = "stepKey";
+export const IDCOUNTER = "idCounter";
 
 export async function saveData(dataKey, dataValue) {
   let stringifiedVal = stringify(dataValue);
@@ -28,7 +29,6 @@ export async function deleteData(dataKey) {
     //Could not delete item with key: dataKey
   }
 }
-
 
 //--Helper functions for this file--//
 function parse(dataString) {

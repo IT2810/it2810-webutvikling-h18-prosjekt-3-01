@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { Notifications } from "expo";
-import Moment from "moment";
+import moment from "moment";
+import Colors from "../constants/Colors";
+
+import {
+  TASK_KEY,
+  IDCOUNTER,
+  saveData,
+  loadData,
+  deleteData
+} from "../utility/LocalAsyncStorage.js";
 
 const TasksContext = React.createContext();
 // Categories: "importanturgent", "notimportanturgent", "importantnoturgent", "notimportantnoturgent"
@@ -10,104 +19,111 @@ class TasksProvider extends Component {
     super(props);
     this.state = {
       allTasks: {
-        1: {
-          description:
-            "THIS IS green importanturgent THIS IS green hei h importanturgent",
-          due: null,
-          reminders: [],
-          category: "importanturgent",
-          completed: false
-        },
-        2: {
-          description:
-            "THIS IS orange notimpor tanturgent THIS IS orange notimpor tanturgent",
-          due: new Date(),
-          reminders: [],
-          category: "notimportanturgent",
-          completed: false
-        },
-        3: {
-          description: "THIS IS blue important noturgent",
-          due: null,
-          reminders: [],
-          category: "importantnoturgent",
-          completed: false
-        },
-        4: {
-          description: "THIS IS red notimportan tnoturgent",
-          due: new Date(),
-          reminders: [new Date()],
-          category: "notimportantnoturgent",
-          completed: false
-        },
-        5: {
-          description: "THIS IS green importanturgent",
-          due: null,
-          reminders: [],
-          category: "importanturgent",
-          completed: false
-        },
-        6: {
-          description:
-            "THIS IS orange notimport anturgent THIS IS orange notimpor tanturgent",
-          due: new Date(),
-          reminders: [new Date()],
-          category: "notimportanturgent",
-          completed: false
-        },
-        7: {
-          description: "THIS IS blue importantnoturgent",
-          due: null,
-          reminders: [],
-          category: "importantnoturgent",
-          completed: false
-        },
-        8: {
-          description: "THIS IS red notimporta ntnoturgent",
-          due: new Date(),
-          reminders: [new Date()],
-          category: "notimportantnoturgent",
-          completed: false
-        },
-        9: {
-          description: "THIS IS green importanturgent",
-          due: null,
-          reminders: [],
-          category: "importanturgent",
-          completed: true
-        },
-        10: {
-          description:
-            "THIS IS orange notimp ortan turgent THIS IS orange notimport anturgent",
-          due: new Date(),
-          reminders: [new Date()],
-          category: "notimportanturgent",
-          completed: false
-        },
-        11: {
-          description: "THIS IS blue importan tnoturgent",
-          due: null,
-          reminders: [],
-          category: "importantnoturgent",
-          completed: false
-        },
-        12: {
-          description: "THIS IS red notimportant noturgent",
-          due: new Date(),
-          reminders: [new Date()],
-          category: "notimportantnoturgent",
-          completed: false
-        }
+        // Uncomment to have test data
+        // 1: {
+        //   descriptionText:
+        //     "THIS IS green importanturgent THIS IS green hei h importanturgent",
+        //   dueDate: new Date(),
+        //   reminder: new Date(),
+        //   category: "importanturgent",
+        //   completed: false
+        // }
+        //,
+        // 2: {
+        //   descriptionText:
+        //     "THIS IS orange notimpor tanturgent THIS IS orange notimpor tanturgent",
+        //   dueDate: new Date(),
+        //   reminder: null,
+        //   category: "notimportanturgent",
+        //   completed: false
+        // },
+        // 3: {
+        //   descriptionText: "THIS IS blue important noturgent",
+        //   dueDate: null,
+        //   reminder: null,
+        //   category: "importantnoturgent",
+        //   completed: false
+        // },
+        // 4: {
+        //   descriptionText: "THIS IS red notimportan tnoturgent",
+        //   dueDate: new Date(),
+        //   reminder: new Date(),
+        //   category: "notimportantnoturgent",
+        //   completed: false
+        // },
+        // 5: {
+        //   descriptionText: "THIS IS green importanturgent",
+        //   dueDate: null,
+        //   reminder: null,
+        //   category: "importanturgent",
+        //   completed: false
+        // },
+        // 6: {
+        //   descriptionText:
+        //     "THIS IS orange notimport anturgent THIS IS orange notimpor tanturgent",
+        //   dueDate: new Date(),
+        //   reminder: null,
+        //   category: "notimportanturgent",
+        //   completed: false
+        // },
+        // 7: {
+        //   descriptionText: "THIS IS blue importantnoturgent",
+        //   dueDate: null,
+        //   reminder: null,
+        //   category: "importantnoturgent",
+        //   completed: false
+        // },
+        // 8: {
+        //   descriptionText: "THIS IS red notimporta ntnoturgent",
+        //   dueDate: new Date(),
+        //   reminder: null,
+        //   category: "notimportantnoturgent",
+        //   completed: false
+        // },
+        // 9: {
+        //   descriptionText: "THIS IS green importanturgent",
+        //   dueDate: null,
+        //   reminder: null,
+        //   category: "importanturgent",
+        //   completed: true
+        // },
+        // 10: {
+        //   descriptionText:
+        //     "THIS IS orange notimp ortan turgent THIS IS orange notimport anturgent",
+        //   dueDate: new Date(),
+        //   reminder: new Date(),
+        //   category: "notimportanturgent",
+        //   completed: false
+        // },
+        // 11: {
+        //   descriptionText: "THIS IS blue importan tnoturgent",
+        //   dueDate: null,
+        //   reminder: null,
+        //   category: "importantnoturgent",
+        //   completed: false
+        // },
+        // 12: {
+        //   descriptionText: "THIS IS red notimportant noturgent",
+        //   dueDate: new Date(),
+        //   reminder: new Date(),
+        //   category: "notimportantnoturgent",
+        //   completed: false
+        // }
       },
       idCounter: 0
     };
   }
 
-  scheduleTaskReminder = (description, categoryColor, time, hasDueDate) => {
+  scheduleTaskReminder = (
+    descriptionText,
+    categoryColor,
+    dueDate,
+    hasDueDate
+  ) => {
     const localNotification = {
-      title: `Remember to ${description.toLowerCase()}`,
+      title: `Remember to ${descriptionText.toLowerCase()}`,
       body: hasDueDate
-        ? `It's due on the ${Moment(due).format(
+        ? `It's due on the ${moment(dueDate).format(
             "D. MMM at HH:mm"
           )} and is a ${categoryColor} task`
         : `It's a ${categoryColor} task.`,
@@ -119,7 +135,7 @@ class TasksProvider extends Component {
     };
 
     const schedulingOptions = {
-      time: time
+      time: dueDate
     };
 
     Notifications.scheduleLocalNotificationAsync(
@@ -132,62 +148,85 @@ class TasksProvider extends Component {
     Notifications.cancelAllScheduledNotificationsAsync();
   };
 
-  toggleCompletedTask = taskId => {
-    this.setState(state => ({
-      allTasks: {
-        ...state.allTasks,
-        [taskId]: {
-          ...state.allTasks[taskId],
-          completed: !state.allTasks[taskId].completed
-        }
-      }
-    }));
+  getCategoryColor = category => {
+    const mapping = {
+      importanturgent: Colors.categoryGreen,
+      notimportanturgent: Colors.categoryOrange,
+      importantnoturgent: Colors.categoryBlue,
+      notimportantnoturgent: Colors.categoryRed
+    };
+    return mapping[category];
   };
 
-  editTask = (taskId, description, due, reminders, category) => {
-    this.setState(state => ({
-      allTasks: {
-        ...state.allTasks,
-        [taskId]: {
-          description: description,
-          due: due,
-          reminders: reminders,
-          category: category
+  toggleCompletedTask = taskId => {
+    this.setState(
+      state => ({
+        allTasks: {
+          ...state.allTasks,
+          [taskId]: {
+            ...state.allTasks[taskId],
+            completed: !state.allTasks[taskId].completed
+          }
         }
+      }),
+      () => console.log("Just toggled task!")
+    );
+  };
+
+  editTask = (taskId, category, descriptionText, dueDate, reminder) => {
+    this.setState(
+      state => ({
+        allTasks: {
+          ...state.allTasks,
+          [taskId]: {
+            descriptionText: descriptionText,
+            dueDate: dueDate,
+            reminder: reminder,
+            category: category
+          }
+        }
+      }),
+      () => {
+        console.log("Just edited task!");
+        saveData(TASK_KEY, this.state.allTasks);
       }
-    }));
+    );
   };
 
   deleteTask = taskId => {
-    // Does not actually delete the key associated with the task, but does the
-    // job well enough.
-    this.setState(state => ({
-      allTasks: {
-        ...state.allTasks,
-        [taskId]: undefined
+    this.setState(
+      state => ({
+        ...state,
+        allTasks: Object.keys(state.allTasks).filter(id => id !== taskId)
+      }),
+      () => {
+        console.log("Just deleted task!");
+        saveData(TASK_KEY, this.state.allTasks);
       }
-    }));
+    );
   };
 
-  addTask = (
-    description,
-    due = null,
-    reminders = [],
-    category = "importanturgent"
-  ) => {
+  addTask = (category, descriptionText, dueDate, reminder) => {
     this.setState(
       state => ({
         allTasks: {
           ...state.allTasks,
           [state.idCounter + 1]: {
-            description: description,
-            due: due,
-            reminders: reminders,
-            category: category
+            descriptionText: descriptionText,
+            dueDate: dueDate,
+            reminder: reminder,
+            category: category,
+            completed: false
           }
         }
       }),
-      () => this.incrementIdCounter()
+      () => {
+        this.incrementIdCounter();
+        // Debug
+        console.log("Just added task!");
+        saveData(TASK_KEY, this.state.allTasks);
+        saveData(IDCOUNTER, this.state.idCounter);
+      }
     );
   };
 
@@ -195,6 +234,16 @@ class TasksProvider extends Component {
     this.setState(state => ({
       idCounter: state.idCounter + 1
     }));
+
+  async componentDidMount() {
+    const tasks = await loadData(TASK_KEY);
+    const idCounter = await loadData(IDCOUNTER);
+    if (tasks && idCounter) {
+      this.setState({ allTasks: tasks, idCounter: idCounter }, () =>
+        console.log(idCounter, this.state.idCounter)
+      );
+    }
+  }
 
   render() {
     return (
@@ -207,7 +256,8 @@ class TasksProvider extends Component {
           deleteTask: this.deleteTask,
           scheduleTaskReminder: this.scheduleTaskReminder,
           cancelAllSchedueledNotifications: this
-            .cancelAllSchedueledNotifications
+            .cancelAllSchedueledNotifications,
+          getCategoryColor: this.getCategoryColor
         }}
       >
         {this.props.children}

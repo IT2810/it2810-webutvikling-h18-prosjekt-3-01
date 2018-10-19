@@ -26,7 +26,10 @@ export default class StepScreen extends React.Component {
   };
 
   static navigationOptions = {
-    title: "Steps"
+    title: "Steps",
+    headerTitleStyle: { textAlign: "center", alignSelf: "center", flex: 1 },
+    headerLeft: <View />,
+    headerRight: <View />
   };
 
   componentDidMount() {

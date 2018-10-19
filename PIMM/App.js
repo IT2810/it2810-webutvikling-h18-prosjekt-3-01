@@ -2,6 +2,8 @@ import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import Expo, { AppLoading, Asset, Font, Icon } from "expo";
 
+import Colors from "./constants/Colors";
+
 import AppNavigator from "./navigation/AppNavigator";
 import TasksProvider from "./containers/Tasks.context";
 
@@ -98,7 +100,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff"
+    flex: 1
   }
 });

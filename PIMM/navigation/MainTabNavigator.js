@@ -5,10 +5,11 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 
-import TextIcon from "../components/TextIcon";
 import TasksScreen from "../screens/TasksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+// import SettingsScreen from "../screens/SettingsScreen";
 import StepScreen from "../screens/StepScreen";
+
+import TextIcon from "../components/TextIcon";
 
 const StepStack = createStackNavigator({
   Steps: StepScreen
@@ -45,30 +46,30 @@ TasksStack.navigationOptions = {
     />
   )
 };
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: "Settings",
-  tabBarIcon: ({ focused }) => (
-    <TextIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-options${focused ? "" : "-outline"}`
-          : "md-options"
-      }
-    />
-  )
-};
+// Uncomment this if you want to include a settings screen
+// const SettingsStack = createStackNavigator({
+//   Settings: SettingsScreen
+// });
+//
+// SettingsStack.navigationOptions = {
+//   tabBarLabel: "Settings",
+//   tabBarIcon: ({ focused }) => (
+//     <TextIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === "ios"
+//           ? `ios-options${focused ? "" : "-outline"}`
+//           : "md-options"
+//       }
+//     />
+//   )
+// };
 
 export default createBottomTabNavigator(
   {
     StepStack,
-    TasksStack,
-    SettingsStack
+    TasksStack
+    // SettingsStack
   },
   {
     initialRouteName: "TasksStack"
