@@ -7,6 +7,9 @@ import TextIcon from "../components/TextIcon";
 import Colors from "../constants/Colors";
 
 export default class ProgressBarContainer extends Component {
+  /*
+   Setup of notifications sent to the user when the daily goal is reached
+   */
   reachedStepGoal = () => {
     const localNotification = {
       title: "Good job! You reached your step goal!",
