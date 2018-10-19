@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders shallow correctly with example props 1`] = `
+<Component
+  style={
+    Object {
+      "marginTop": 30,
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#5a95ff",
+        "fontSize": 18,
+        "lineHeight": 19,
+        "marginBottom": 20,
+      }
+    }
+  >
+    Statistics
+  </Text>
+  <Component />
+  <StatisticsItem
+    steps={5000}
+    text="Today"
+  />
+  <StatisticsItem
+    steps={1429}
+    text="Daily average last 7 days"
+  />
+  <StatisticsItem
+    steps={10000}
+    text="Total last 7 days"
+  />
+  <Component />
+</Component>
+`;
