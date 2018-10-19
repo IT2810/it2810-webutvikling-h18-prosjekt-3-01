@@ -1,60 +1,77 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import TasksScreen from "../screens/TasksScreen";
+// import SettingsScreen from "../screens/SettingsScreen";
+import StepScreen from "../screens/StepScreen";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+import TextIcon from "../components/TextIcon";
+
+const StepStack = createStackNavigator({
+  Steps: StepScreen
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+StepStack.navigationOptions = {
+  tabBarLabel: "Steps",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <TextIcon
       focused={focused}
       name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        Platform.OS === "ios"
+          ? `ios-walk${focused ? "" : "-outline"}`
+          : "md-walk"
       }
     />
-  ),
+  )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const TasksStack = createStackNavigator({
+  Tasks: TasksScreen
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+TasksStack.navigationOptions = {
+  tabBarLabel: "Tasks",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <TextIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={
+        Platform.OS === "ios"
+          ? `ios-checkmark-circle${focused ? "" : "-outline"}`
+          : "md-checkmark-circle"
+      }
     />
-  ),
+  )
 };
+// Uncomment this if you want to include a settings screen
+// const SettingsStack = createStackNavigator({
+//   Settings: SettingsScreen
+// });
+//
+// SettingsStack.navigationOptions = {
+//   tabBarLabel: "Settings",
+//   tabBarIcon: ({ focused }) => (
+//     <TextIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === "ios"
+//           ? `ios-options${focused ? "" : "-outline"}`
+//           : "md-options"
+//       }
+//     />
+//   )
+// };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
-};
-
-export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+export default createBottomTabNavigator(
+  {
+    StepStack,
+    TasksStack
+    // SettingsStack
+  },
+  {
+    initialRouteName: "TasksStack"
+  }
+);

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders shallow correctly with example props 1`] = `
+<Component
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#707070",
+        "marginLeft": 25,
+      }
+    }
+  >
+    Daily steps
+  </Text>
+  <Component
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <TextIcon
+      defaultColor="#8D8D8D"
+      focusedColor="#5a95ff"
+      iconSize={32}
+      name="ios-walk"
+    />
+    <ProgressBar
+      borderColor="#bebebe"
+      borderRadius={10}
+      borderWidth={2}
+      dailyGoal={10000}
+      duration={500}
+      fillColor="#bebebe"
+      height={18}
+      progress={0.5}
+      stepsToday={5000}
+    />
+    <TextIcon
+      defaultColor="#bebebe"
+      focused={false}
+      focusedColor="#5a95ff"
+      iconSize={32}
+      name="ios-checkmark-circle-outline"
+    />
+  </Component>
+</Component>
+`;

@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+    "test": "node_modules/.bin/jest"
   },
   "jest": {
     "preset": "jest-expo"
@@ -15,11 +15,17 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "expo": "^30.0.1",
+    "moment": "^2.22.2",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-elements": "^1.0.0-beta6",
+    "react-native-material-menu": "^0.4.1",
+    "react-native-modal-datetime-picker": "^6.0.0",
     "react-navigation": "^2.16.0"
   },
   "devDependencies": {
-    "jest-expo": "30.0.0"
+    "jest": "^23.6.0",
+    "jest-expo": "^30.0.0",
+    "prettier": "^1.14.3"
   }
 }
